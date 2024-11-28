@@ -1,17 +1,15 @@
-import asyncio
 import requests
-import websockets
 import json
 
-BASE_URL = "http://127.0.0.1:8000"
+BASE_URL = "https://textarena.ngrok.io" #"http://127.0.0.1:8000"
 
 def wrapped_request(url, data, request_type="get"):
     """ TODO """
     try:
         if request_type == "get":
-            response = requests.get(url, params=data)
+            response = requests.get(url, params=data, timeout=10)
         elif request_type == "post":
-            response = requests.post(url, json=data)
+            response = requests.post(url, json=data, timeout=10)
             print(response)
         else:
             raise Exception(f"Unexpected request type: {request_type}")
@@ -25,6 +23,8 @@ def wrapped_request(url, data, request_type="get"):
         else:
             print("An unexpected error occurred.")
         raise
+
+
 
 def register_online_model(model_name, model_description, email):
     """

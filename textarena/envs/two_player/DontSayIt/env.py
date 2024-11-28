@@ -86,7 +86,7 @@ class DontSayItEnv(ta.Env):
         )
 
 
-    def _generate_player_prompt(self, player_id: int) -> str:
+    def _generate_player_prompt(self, player_id: int, game_state: Dict[int, Any]) -> str:
         """
         Generate the initial prompt for a player, providing them with their secret word and instructions.
 
@@ -106,6 +106,9 @@ class DontSayItEnv(ta.Env):
         if self.state.max_turns:
             prompt += f"The game lasts for {self.state.max_turns} turns in total.\n"
         return prompt
+
+    def get_current_player_id(self):
+        return self.state.current_player 
 
     def step(
         self,

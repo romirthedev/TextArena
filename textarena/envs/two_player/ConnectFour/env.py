@@ -3,7 +3,7 @@
 import textarena as ta
 
 import random, re
-from typing import Any, Dict, Optional, Tuple, List
+from typing import Any, Dict, Optional, Tuple, List, Callable
 
 
 class ConnectFourEnv(ta.Env):
@@ -33,6 +33,10 @@ class ConnectFourEnv(ta.Env):
             render_keys=["rendered_board"]
         )
 
+        self.observers: List[Callable[[Dict[str, Any]], None]] = []
+
+        # load the game-board render object
+        self.board_state_render = ta.envs.two_player.ConnectFour.render.GameStateRender
 
     def reset(
         self, seed: Optional[int] = None
@@ -74,7 +78,7 @@ class ConnectFourEnv(ta.Env):
         return [["." for _ in range(self.num_cols)] for _ in range(self.num_rows)]
 
 
-    def _generate_player_prompt(self, player_id: int) -> str:
+    def _generate_player_prompt(self, player_id: int, game_state: Dict[int, Any]) -> str:
         """
         Generate the initial prompt for a player.
 
@@ -101,6 +105,9 @@ class ConnectFourEnv(ta.Env):
         else:
             prompt += "The game board is not visible to players.\n"
         return prompt
+
+    def get_current_player_id(self):
+        return self.state.current_player 
 
     def step(
         self,
@@ -139,7 +146,10 @@ class ConnectFourEnv(ta.Env):
 
 
         # Validate and parse the action
-        is_valid, col_or_reason = self._validate_action(action)
+        is_valid, col_or_reason = self._validate_action(
+            player_id=player_id,
+            action=action
+        )
         if not is_valid:
             self.state.set_invalid_move(
                 player_ids=[player_id],
@@ -152,6 +162,7 @@ class ConnectFourEnv(ta.Env):
         # Place the disc
         row = self._get_available_row(col)
         self.state.game_state["board"][row][col] = "X" if player_id == 0 else "O"
+
 
         # Check for a win
         if self._check_win(row, col):
@@ -178,7 +189,7 @@ class ConnectFourEnv(ta.Env):
 
         return self.state.step()
 
-    def _validate_action(self, action: str) -> Tuple[bool, Any]:
+    def _validate_action(self, player_id: int, action: str) -> Tuple[bool, Any]:
         """
         Validate the player's action.
 
@@ -191,14 +202,14 @@ class ConnectFourEnv(ta.Env):
         action_pattern = re.compile(r"\[col (\d+)\]", re.IGNORECASE)
         match = action_pattern.search(action.strip())
         if not match:
-            return False, "Invalid action format. Expected format: '[col x]'."
+            return False, f"Player {player_id}, Invalid action format. Expected format: '[col x]'."
 
         col = int(match.group(1))
         if not (0 <= col < self.num_cols):
-            return False, f"Column {col} is out of bounds."
+            return False, f"Player {player_id}, Invalid action. Column {col} is out of bounds."
 
         if self.state.game_state["board"][0][col] != ".":
-            return False, f"Column {col} is full."
+            return False, f"Player {player_id}, Invalid action. Column {col} is full."
 
         return True, col
 
@@ -303,13 +314,20 @@ class ConnectFourEnv(ta.Env):
         """
         Render the current game state to the console.
         """
-        print(f"Turn: {self.state.turn}")
-        print("Game Board:")
-        print(self.state.game_state["rendered_board"])
-        print("\nRecent Game Logs:")
-        recent_logs = self.state.logs[-5:]  # Display the last 5 logs
-        for sender_id, log in recent_logs:
-            if sender_id == ta.GAME_ID:
-                print(f"[GAME] {log}")
-            else:
-                print(f"[Player {sender_id}] {log}")
+        raise NotImplementedError("Please use a render wrapper.")
+        # print(f"Turn: {self.state.turn}")
+        # print("Game Board:")
+        # print(self.state.game_state["rendered_board"])
+        # print("\nRecent Game Logs:")
+        # recent_logs = self.state.logs[-5:]  # Display the last 5 logs
+        # for sender_id, log in recent_logs:
+        #     if sender_id == ta.GAME_ID:
+        #         print(f"[GAME] {log}")
+        #     else:
+        #         print(f"[Player {sender_id}] {log}")
+
+
+    def register_observer(self, observer: Callable[[Dict[str, Any]], None]):
+        """ Register an observer callback. """
+        if observer not in self.observers:
+            self.observers.append(observer)
