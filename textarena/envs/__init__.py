@@ -529,3 +529,9 @@ register(
     "SpiteAndMalice-v0",
     entry_point="textarena.envs.two_player.SpiteAndMalice.env:SpiteAndMaliceEnv",
 )
+
+register(
+    "Tak-v0-easy",
+    entry_point="textarena.envs.two_player.Tak.env:TakEnv",
+    difficulty="easy",
+)
