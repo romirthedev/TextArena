@@ -40,8 +40,10 @@ class TakEnv(ta.Env):
         self.state = ta.State(
             num_players=2,
             max_turns=None,
-            render_keys=["rendered_board"],
         )
+
+        ## temporary fix for the board. Find a better way to initialize the board.
+        self.render_keys = ['rendered_board']
 
     def reset(
         self,
@@ -126,14 +128,14 @@ class TakEnv(ta.Env):
         """
         if not stack:
             return ""  # Empty cell
-        return f"({len(stack)}){'/'.join(stack)}"  # Full stack representation
+        return f"({len(stack)}) {'/'.join(stack)}"  # Full stack representation
     
     ## Helper function to pad cells for uniform display
     def _pad_cell(self, content, cell_width):
         return content.center(cell_width)
 
     ## Helper function to generate the player prompt
-    def _generate_player_prompt(self, player_id):
+    def _generate_player_prompt(self, player_id, game_state):
         """
         Generate the player prompt.
         """
@@ -188,7 +190,7 @@ class TakEnv(ta.Env):
             "\n"
             "When submitting your move, think strategically about your road-building goals and your opponent's potential moves.\n"
             "Here is the current board:\n"
-            f"{self.board}\n"
+            f"{self._render_board()}\n"
         )
 
         return prompt
@@ -257,12 +259,13 @@ class TakEnv(ta.Env):
                         reasons=[f"Invalid placement. Player {player_id} tried to place a piece on an invalid square."]
                     )
                 else:
-                    ## valid placement
-                    row, col = list(allocation.keys())[0]
-                    piece = list(allocation.values())[0]
-                    # piece = [p.upper() + f"{player_id}" for p in piece]
-                    self.board[row][col].extend(piece)
-                    self._update_pieces(player_id, piece)
+                    self._apply_placement(allocation, player_id)
+                    self.state.add_observation(
+                        from_id=-1,
+                        to_id=-1,
+                        message=f"Player {player_id} placed a piece on ({list(allocation.keys())}). New board state:\n{self._render_board()}",
+                        for_logging=True
+                    )
 
             elif action == "move":
                 ## move a stack of pieces from one square to another
@@ -274,13 +277,13 @@ class TakEnv(ta.Env):
                     )
                 else:
                     ## valid movement
-                    source_row, source_col = source
-                    source_stack = self.board[source_row][source_col]
-                    for target, pieces in allocation.items():
-                        target_row, target_col = target
-                        # pieces = [p.upper() + f"{player_id}" for p in pieces]
-                        self.board[target_row][target_col].extend(pieces)
-                        self.board[source_row][source_col] = source_stack[:-len(pieces)]
+                    self._apply_movement(source, allocation)
+                    self.state.add_observation(
+                        from_id=-1,
+                        to_id=-1,
+                        message=f"Player {player_id} moved pieces from {source} to {list(allocation.keys())}. New board state:\n{self._render_board()}",
+                        for_logging=True
+                    )
 
             else:
                 ## invalid action
@@ -320,7 +323,7 @@ class TakEnv(ta.Env):
             """Check if the cell is valid for the player."""
             if 0 <= row < self.board_size and 0 <= col < self.board_size:
                 stack = self.board[row][col]
-                return stack and stack[-1].endswith(str(player_id))  # Top piece matches player ID
+                return stack and stack[-1].endswith(str(player_id)) and stack[-1][0] in ["F","C"] # Top piece matches player ID
             return False
 
         def dfs(row, col, edge_reached):
@@ -338,26 +341,43 @@ class TakEnv(ta.Env):
             # Explore neighboring cells
             for dr, dc in directions:
                 new_row, new_col = row + dr, col + dc
-                print('new given row and col', new_row, new_col)
                 if is_valid_cell(new_row, new_col):
                     if dfs(new_row, new_col, edge_reached):
                         return True
 
             return False
 
-        # Check connections from the top edge to the bottom edge
+        # **New Logic for Top and Bottom Edge Paths**
+        # Check for a direct path in the top row
+        if all(is_valid_cell(0, col) for col in range(self.board_size)):
+            return True
+
+        # Check for a direct path in the bottom row
+        if all(is_valid_cell(self.board_size - 1, col) for col in range(self.board_size)):
+            return True
+
+        # **New Logic for Left and Right Edge Paths**
+        # Check for a direct path in the left column
+        if all(is_valid_cell(row, 0) for row in range(self.board_size)):
+            return True
+
+        # Check for a direct path in the right column
+        if all(is_valid_cell(row, self.board_size - 1) for row in range(self.board_size)):
+            return True
+
+        # Depth-first search for top-to-bottom and left-to-right paths
         for col in range(self.board_size):
             if is_valid_cell(0, col):  # Start from the top edge
                 if dfs(0, col, "top"):
                     return True
 
-        # Check connections from the left edge to the right edge
         for row in range(self.board_size):
             if is_valid_cell(row, 0):  # Start from the left edge
                 if dfs(row, 0, "left"):
                     return True
 
         return False
+
 
 
     def _update_pieces(self, player_id, piece):
@@ -409,88 +429,145 @@ class TakEnv(ta.Env):
         """
         Check if the placement is valid.
         """
-        allocation_keys = list(allocation.keys())
-        allocation_values = list(allocation.values())
-        if len(allocation_keys) > 1:
+        if len(allocation.items()) != 1:
             ## needs to be a single allocation
             return False
-        row, col = allocation_keys[0]
-        piece = allocation_values[0]
+
+        row, col = list(allocation.keys())[0]
+        piece = list(allocation.values())[0]
+
         if not (0 <= row < self.board_size and 0 <= col < self.board_size):
             ## needs to be within the board
             return False
+        
+        if len(piece) != 1:
+            ## needs to be a single piece
+            return False
+        
         if self.board[row][col]:
             ## needs to be an empty square
             return False
-        if len(piece) > 1:
-            ## needs to be a single piece
-            return False
-        return True
-    
-    def _is_valid_movement(
-            self,
-            source,
-            allocation,
-        ):
-        """
-        Check if the movement is valid.
-        """
-
-        ## check if the source stone is a cornerstone, flatstone, or wallstone
-        stone_type = self.board[source[0]][source[1]][-1][0] ## get the type of the stone, F, W, or C
-
-        if source is None:
-            # Source must be provided
-            return False
-
-        if source[0] >= self.board_size or source[1] >= self.board_size:
-            # Source must be within the board
-            return False
-
-        if not self.board[source[0]][source[1]]:
-            # Source must have pieces
+        
+        if piece[0][0] not in ["F", "W", "C"]:
+            ## unacceptable piece
             return False
         
-        if self.board[source[0]][source[1]][-1][-1] != str(self.state.get("current_player")):
-            # Source must have the current player's stone on top
-            return False
-
-        # Get the source stack
-        source_stack = self.board[source[0]][source[1]]
-
-        # Flatten the allocated pieces in the order they are specified
-        allocated_pieces = []
-        for target, pieces in allocation.items():
-            if target[0] >= self.board_size or target[1] >= self.board_size:
-                # Target must be within the board
-                return False
-            if stone_type == "F" and "W" in self.board[target[0]][target[1]]:
-                # Flat stones cannot be moved with wall stones
-                return False
-            if stone_type == "W" and "C" in self.board[target[0]][target[1]]:
-                # Wall stones cannot be moved with capstones
-                return False
-            if stone_type == "C" and "W" in self.board[target[0]][target[1]]:
-                # Capstones can flatten wall stones
-                target_list = self.board[target[0]][target[1]]
-                # replace the wall stone with a flat stone in the target list
-                target_list[-1] = "F" + target_list[-1][1]
-            if "C" in pieces and len(pieces) > 1:
-                # Capstones cannot be moved with other pieces
-                return False
-            allocated_pieces.extend(pieces)
-
-        # Ensure that the number of allocated pieces doesn't exceed the source stack size
-        if len(allocated_pieces) > len(source_stack):
-            return False
-
-        # Validate that the allocated pieces match the top of the source stack
-        top_of_stack = source_stack[-len(allocated_pieces):]  # Last `len(allocated_pieces)` elements
-        if allocated_pieces != top_of_stack:
-            # Allocated pieces must match the top of the stack in order
-            return False
-
         return True
+    
+    def _apply_placement(
+        self,
+        allocation,
+        player_id
+    ):
+        ## valid placement
+        row, col = list(allocation.keys())[0]
+        piece = list(allocation.values())[0]
+        # piece = [p.upper() + f"{player_id}" for p in piece]
+        self.board[row][col].extend(piece)
+        self._update_pieces(player_id, piece)
+
+    
+    def _is_valid_movement(
+        self,
+        source,
+        allocation
+    ):
+        """
+        check if the movement is valid.
+        """
+        source_row, source_col = source
+
+        if source_col >= self.board_size or source_row >= self.board_size:
+            ## source must be within the board
+            return False
+        
+        if not self.board[source_row][source_col]:
+            ## source must have pieces
+            return False
+        
+        source_type, source_player_id = self.board[source_row][source_col][-1][0], self.board[source_row][source_col][-1][-1]
+
+        if source_player_id != str(self.state.get("current_player")):
+            ## source must have the current player's stone on top
+            return False
+        
+        source_stack = self.board[source_row][source_col]
+        pieces_to_move = [value for values in allocation.values() for value in values]
+
+        if pieces_to_move != source_stack[-len(pieces_to_move):]:
+            ## pieces to move must match the top of the stack in order
+            return False
+        
+        top_piece_type = source_stack[-1][0]
+
+        if len(pieces_to_move) == 1:
+            ## single pieces retain the power of the capstone - to flatten wall stones.
+            target_row, target_col = list(allocation.keys())[0]
+            if self.board[target_row][target_col]:
+                if (abs(target_row - source_row) + abs(target_col - source_col)) != 1:
+                    ## target must be adjacent to the source
+                    return False
+                
+                if target_row >= self.board_size or target_col >= self.board_size:
+                    ## target must be within the board
+                    return False
+                
+                if top_piece_type == "C" and self.board[target_row][target_col][-1][0] == "C":
+                    ## capstone cannot be moved over another capstone
+                    return False
+                elif top_piece_type == "W" and self.board[target_row][target_col][-1][0] in ["W", "C"]:
+                    ## wall stone cannot be moved over capstone
+                    return False
+                elif top_piece_type == "F" and self.board[target_row][target_col][-1][0] in ["W", "C"]:
+                    ## flat stone cannot be moved over wall stone or capstone
+                    return False
+        else:
+            for target, pieces in allocation.items():
+                target_row, target_col = target
+                if (abs(target_row - source_row) + abs(target_col - source_col)) != 1:
+                    ## target must be adjacent to the source
+                    return False
+                
+                if target_row >= self.board_size or target_col >= self.board_size:
+                    ## target must be within the board
+                    return False
+                
+                if self.board[target_row][target_col][-1][0] == "C":
+                    ## nothing can be moved over another capstone
+                    return False
+                elif self.board[target_row][target_col][-1][0] == "W":
+                    ## nothing can be moved over a wall stone
+                    return False
+                
+        return True
+    
+    def _apply_movement(
+        self,
+        source,
+        allocation
+    ):
+        """
+        Apply the movement to the board.
+        """
+        source_row, source_col = source
+        source_stack = self.board[source_row][source_col]
+        pieces_to_move = [value for values in allocation.values() for value in values]
+        top_piece_type = source_stack[-1][0]
+
+        if len(pieces_to_move) == 1:
+            target_row, target_col = list(allocation.keys())[0]
+            if self.board[target_row][target_col]:
+                if top_piece_type == "C" and self.board[target_row][target_col][-1][0] == "W":
+                    ## capstone can flatten wall stone
+                    self.board[target_row][target_col][-1] = "F" + self.board[target_row][target_col][-1][1]
+            self.board[target_row][target_col].extend(pieces_to_move)
+        else:
+            for target, pieces in allocation.items():
+                target_row, target_col = target
+                self.board[target_row][target_col].extend(pieces)
+
+        self.board[source_row][source_col] = source_stack[:-len(pieces_to_move)]            
+    
 
     def render(self):
         """

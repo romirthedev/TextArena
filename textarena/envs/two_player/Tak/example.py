@@ -11,7 +11,7 @@ env = ta.wrappers.PrettyRenderWrapper(env=env)
 
 # initalize agents
 agents = {
-    0: ta.basic_agents.HumanAgent(model_name="gpt-4o"),
+    0: ta.basic_agents.OpenRouter(model_name="gpt-4o-mini"),
     1: ta.basic_agents.OpenRouter(model_name="gpt-4o-mini")
     }
 
@@ -28,12 +28,12 @@ while not done:
     # Get the current observation for the player
     obs = observations[current_player_id]
 
-    # print("Observation:\n", obs)
-    # print("="*80)
+    print("Observation:\n", obs)
+    print("="*80)
     # Agent decides on an action based on the observation
     action = agents[current_player_id](obs)
-    # print("Action:\n", action)
-    # print("="*80)
+    print("Action:\n", action)
+    print("="*80)
 
     # Execute the action in the environment
     observations, rewards, truncated, terminated, info = env.step(current_player_id, action)
