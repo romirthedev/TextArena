@@ -562,3 +562,8 @@ register(
     entry_point="textarena.envs.two_player.Tak.env:TakEnv",
     difficulty="easy"
 )
+
+register(
+    "UltimateTicTacToe-v0",
+    entry_point="textarena.envs.two_player.UltimateTicTacToe.env:UltimateTicTacToeEnv",
+)
