@@ -38,6 +38,7 @@ class BattleshipEnv(ta.Env):
 
         # add render object
         self.board_state_render = ta.envs.two_player.Battleship.render.GameStateRender
+        self.render_keys = ["rendered_board"]
 
     def reset(self, seed: Optional[int] = None):
         """
