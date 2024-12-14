@@ -1,4 +1,4 @@
-from textarena.wrappers.RenderWrappers import BrowserRenderWrapper
+from textarena.wrappers.RenderWrappers import BrowserRenderWrapper, PrettyRenderWrapper
 from textarena.wrappers.observation_wrappers import LLMObservationWrapper
 from textarena.wrappers.action_wrappers import ClipWordsActionWrapper
 from textarena.wrappers.agent_wrappers import (
@@ -15,4 +15,5 @@ __all__ = [
     'InterpreterAgentWrapper',
     'ChainAgentWrapper',
     'ActorCriticAgentWrapper',
+    'PrettyRenderWrapper',
 ]
