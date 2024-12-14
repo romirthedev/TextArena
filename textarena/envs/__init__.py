@@ -556,3 +556,9 @@ register(
     entry_point="textarena.envs.two_player.LeHavre.env:LeHavreEnv",
     max_turns=20
 )
+
+register(
+    "Tak-v0-easy",
+    entry_point="textarena.envs.two_player.Tak.env:TakEnv",
+    difficulty="easy"
+)
