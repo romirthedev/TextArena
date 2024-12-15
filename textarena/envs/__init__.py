@@ -567,3 +567,8 @@ register(
     "UltimateTicTacToe-v0",
     entry_point="textarena.envs.two_player.UltimateTicTacToe.env:UltimateTicTacToeEnv",
 )
+
+register(
+    "Stratego-v0",
+    entry_point="textarena.envs.two_player.Stratego.env:StrategoEnv",
+)
