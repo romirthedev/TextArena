@@ -11,8 +11,8 @@ env = ta.wrappers.PrettyRenderWrapper(env=env)
 
 # initalize agents
 agents = {
-    0: ta.basic_agents.OpenRouterAgent(model_name="gpt-4o"),
-    1: ta.basic_agents.OpenRouterAgent(model_name="gpt-4o-mini")
+    0: ta.basic_agents.HumanAgent(),#(model_name="gpt-4o"),
+    1: ta.basic_agents.HumanAgent()#(model_name="gpt-4o-mini")
     }
 
 # reset the environment to start a new game

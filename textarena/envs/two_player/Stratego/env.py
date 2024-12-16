@@ -494,6 +494,12 @@ class StrategoEnv(ta.Env):
                             for_logging=False
                         )
 
+        ## check if the game is over
+        if self._check_winner():
+            self.state.set_winners(
+                player_ids=[self._check_winner()],
+                reason=[f"Player {self._check_winner()} wins! Player {1 - self._check_winner()} has no more movable pieces."]
+            )
 
         ## update the rendered board
         self.state.game_state["rendered_board"] = self._render_board(player_id=player_id, full_board=True)
@@ -580,6 +586,15 @@ class StrategoEnv(ta.Env):
             return False
         
         return True
+    
+    def _check_winner(self):
+        """
+        determine which player has no more pieces that are not bombs or flags.
+        """
+        for player in range(2):
+            if all([self.board[row][col]['rank'] in ['Bomb', 'Flag'] for row, col in self.player_pieces[player]]):
+                return 1 - player
+        return None
     
     def render(
         self
