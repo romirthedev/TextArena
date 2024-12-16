@@ -13,7 +13,7 @@ class TakEnv(ta.Env):
         difficulty: Optional[str] = "easy",
     ):
         """
-        Initializa the Tak game environment
+        Initialize the Tak game environment
         
         Args:
             difficulty: Difficulty of the game. Can be "easy", "medium", "hard".
@@ -189,13 +189,13 @@ class TakEnv(ta.Env):
             "\n"
             "Examples:\n"
             "- To place a capstone on (3,2):\n"
-            "  [place () {'(3,2)': ['C0']}]\n"
+            "  [place () {(3,2): [C0]}]\n"
             "- To move all pieces from (2,2) to (2,3):\n"
-            "  [move (2,2) {'(2,3)': ['F0']}]\n"
+            "  [move (2,2) {(2,3): [F0]}]\n"
             "- To split a stack of 5 pieces from (2,2) into two squares:\n"
-            "  [move (2,2) {'(2,3)': ['F0', 'F0'], '(2,4)': ['W0', 'F0', 'C0']}]\n"
+            "  [move (2,2) {(2,3): [F0, F0], (2,4): [W0, F0, C0]}]\n"
             "- To move and stack one piece from (2,2) onto an existing stack at (2,3):\n"
-            "  [move (2,2) {'(2,3)': ['F0']}]\n"
+            "  [move (2,2) {(2,3): [F0]}]\n"
             "\n"
             "When submitting your move, think strategically about your road-building goals and your opponent's potential moves.\n"
             "Here is the current board:\n"
@@ -394,8 +394,6 @@ class TakEnv(ta.Env):
 
         return False
 
-
-
     def _update_pieces(self, player_id, piece):
         """
         Update the player's piece count if a new piece is placed.
@@ -423,15 +421,9 @@ class TakEnv(ta.Env):
         else:
             source = None  # For place actions with no source
 
-        # Process allocation: Check if allocation is in valid format
-        if allocation.startswith("{") and allocation.endswith("}"):
-            allocation_dict = ast.literal_eval(allocation)  # Safely parse the allocation
-            # Convert keys to tuples of integers
-            allocation_dict = {
-                tuple(map(int, k.strip("()").split(','))): v
-                for k, v in allocation_dict.items()
-            }
-        else:
+        try:
+            allocation_dict = self._convert_to_dict(allocation)
+        except:
             return None, None, None
 
         # Return processed values
@@ -448,7 +440,6 @@ class TakEnv(ta.Env):
         if len(allocation.items()) != 1:
             ## needs to be a single allocation
             return False
-
         row, col = list(allocation.keys())[0]
         piece = list(allocation.values())[0]
 
@@ -498,6 +489,10 @@ class TakEnv(ta.Env):
         """
         check if the movement is valid.
         """
+        if source is None:
+            ## source must be provided
+            return False
+        
         source_row, source_col = source
 
         if source_col >= self.board_size or source_row >= self.board_size:
@@ -526,24 +521,25 @@ class TakEnv(ta.Env):
         if len(pieces_to_move) == 1:
             ## single pieces retain the power of the capstone - to flatten wall stones.
             target_row, target_col = list(allocation.keys())[0]
-            if self.board[target_row][target_col]:
-                if (abs(target_row - source_row) + abs(target_col - source_col)) != 1:
-                    ## target must be adjacent to the source
-                    return False
-                
-                if target_row >= self.board_size or target_col >= self.board_size:
-                    ## target must be within the board
-                    return False
-                
-                if top_piece_type == "C" and self.board[target_row][target_col][-1][0] == "C":
-                    ## capstone cannot be moved over another capstone
-                    return False
-                elif top_piece_type == "W" and self.board[target_row][target_col][-1][0] in ["W", "C"]:
-                    ## wall stone cannot be moved over capstone
-                    return False
-                elif top_piece_type == "F" and self.board[target_row][target_col][-1][0] in ["W", "C"]:
-                    ## flat stone cannot be moved over wall stone or capstone
-                    return False
+
+            if (abs(target_row - source_row) + abs(target_col - source_col)) != 1:
+                ## target must be adjacent to the source
+                return False
+            
+            if target_row >= self.board_size or target_col >= self.board_size:
+                ## target must be within the board
+                return False
+            
+            if top_piece_type == "C" and self.board[target_row][target_col] and self.board[target_row][target_col][-1][0] == "C":
+                ## capstone cannot be moved over another capstone
+                return False
+            elif top_piece_type == "W" and self.board[target_row][target_col] and self.board[target_row][target_col][-1][0] in ["W", "C"]:
+                ## wall stone cannot be moved over capstone
+                return False
+            elif top_piece_type == "F" and self.board[target_row][target_col] and self.board[target_row][target_col][-1][0] in ["W", "C"]:
+                ## flat stone cannot be moved over wall stone or capstone
+                return False
+
         else:
             for i, (target, pieces) in enumerate(allocation.items()):
                 target_row, target_col = target
@@ -592,6 +588,33 @@ class TakEnv(ta.Env):
 
         self.board[source_row][source_col] = source_stack[:-len(pieces_to_move)]            
     
+    def _convert_to_dict(self, input_str):
+        """
+        Converts a string representation of a dictionary with tuple keys and list-like values
+        into a valid Python dictionary, ensuring:
+        - Tuple keys retain their integer types.
+        - List elements are converted to strings.
+        """
+        # Preprocess the string to wrap unquoted words with quotes
+        def add_quotes(match):
+            return f"'{match.group(0)}'"
+        
+        # Use regex to find unquoted words in the list-like values
+        input_str = re.sub(r'\b([A-Za-z0-9_]+)\b', add_quotes, input_str)
+        
+        # Safely evaluate the corrected string
+        try:
+            parsed_dict = ast.literal_eval(input_str)
+            
+            # Convert keys back to tuples with integers, and ensure list elements are strings
+            result_dict = {
+                tuple(int(k) if k.isdigit() else k for k in key): [str(item) for item in value]
+                for key, value in parsed_dict.items()
+            }
+            
+            return result_dict
+        except Exception as e:
+            raise ValueError(f"Invalid input string: {input_str}") from e
 
     def render(self):
         """
