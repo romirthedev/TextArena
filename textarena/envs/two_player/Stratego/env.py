@@ -82,22 +82,41 @@ class StrategoEnv(ta.Env):
             f"You are Player {player_id}. You are playing the Stratego game.\n"
             "Your goal is to capture your opponent's Flag or eliminate all of their movable pieces.\n"
             "At the start of the game, you have placed your army on the board, including your Flag, Bombs, and other pieces of varying ranks.\n"
-            "On your turn, you can move one piece by only one step to an adjacent square (up, down, left, or right). For example, it can only move from A1 to B1. If your selected piece is a Bomb or a Flag, then they cannot be moved.\n"
-            "If you move onto a square occupied by an opponent's piece, a battle will occur:\n"
-            "- The piece with the higher rank wins and eliminates the opponent's piece.\n"
-            "- If the ranks are equal, both pieces are removed.\n"
-            "- Bombs eliminate most attacking pieces except Miners, which neutralize Bombs.\n"
-            "- Spies can defeat the Marshal if they attack first but lose to any other piece.\n"
             "\n"
-            "Your task is to plan your moves strategically:\n"
-            "- Focus on identifying the ranks of your opponent's pieces through their movements and battles.\n"
-            "- Protect your Flag while attempting to capture your opponent's Flag.\n"
-            "- Use Scouts to gain information, as they can move multiple squares in a straight line. However, scouts cannot move jump over pieces. Example, if there is a piece in between the scout and the destination, the scout cannot move to the destination.\n"
+            "### Gameplay Instructions\n"
+            "1. **Movement Rules:**\n"
+            "   - On your turn, you can move one piece by one step to an adjacent square (up, down, left, or right).\n"
+            "   - Example: A piece can move from A1 to B1 or A1 to A2.\n"
+            "   - If the selected piece is a Bomb or a Flag, it cannot be moved.\n"
+            "   - **Scout Movement:** Scouts can move multiple steps in a straight line (horizontally or vertically).\n"
+            "       - Scouts cannot jump over any piece (your own or your opponent's).\n"
+            "       - Example: If there is a piece between the Scout and its destination, the Scout cannot move to the destination.\n"
+            "2. **Battles:**\n"
+            "   - If you move onto a square occupied by an opponent's piece, a battle will occur:\n"
+            "     - The piece with the higher rank wins and eliminates the opponent's piece.\n"
+            "     - If the ranks are equal, both pieces are removed from the board.\n"
+            "     - **Special Cases:**\n"
+            "       - Bombs eliminate most attacking pieces except Miners, which defuse Bombs.\n"
+            "       - Spies can defeat the Marshal if the Spy attacks first but lose to all other pieces.\n"
+            "3. **Strategic Goals:**\n"
+            "   - Identify your opponent's pieces through their movements and battles.\n"
+            "   - Protect your Flag while attempting to capture your opponent's Flag.\n"
+            "   - Use Scouts strategically to gain information about your opponent's pieces and attack weak ones.\n"
             "\n"
-            "To make a move, specify the coordinates of the piece you want to move and its destination in the format [A0 B0]. For example, to move a piece from row 0, column 0 to row 1, column 0, you would input [A0 B0].\n"
-            "The board will show your pieces, their positions, and the known positions of your opponent's pieces, whilst not revealing the ranks of your opponent's pieces.\n"
+            "### How to Make a Move:\n"
+            "1. Specify the coordinates of the piece you want to move and its destination.\n"
+            "2. Use the format: [A0 B0], where A0 is the source position, and B0 is the destination.\n"
+            "   - Example: To move a piece from row 0, column 0 to row 1, column 0, input [A0 B0].\n"
+            "3. Ensure the destination is valid according to the movement rules above.\n"
+            "\n"
+            "### Important Notes:\n"
+            "- The board will show your pieces and their positions.\n"
+            "- The board will also show known positions of your opponent's pieces without revealing their ranks.\n"
+            "- Invalid moves will not be allowed. Plan carefully!\n"
+            "\n"
             "Here is the current board state:\n"
         )
+
 
         prompt += self._render_board(player_id=player_id, full_board=False)
 
@@ -106,58 +125,109 @@ class StrategoEnv(ta.Env):
     
     def _populate_board(self):
         """
-        Populates the board with pieces for each player.
+        Populates the board with pieces for each player strategically.
         """
-
-        ## set up the pieces for each player based on random placement
         for player in range(2):
-            rows = range(0, 4) if player == 0 else range(6, 10)
-            for piece, count in self.piece_counts.items():
-                piece = piece.lower() if player == 0 else piece.upper()
-                for _ in range(count):
-                    while True:
-                        row = random.choice(rows)
-                        col = random.randint(0, 9)
-                        if (row, col) in self.lakes or self.board[row][col] is not None:
-                            continue
-                        self.board[row][col] = {'rank': piece, 'player': player}
+            # Define rows for each player
+            back_rows = range(0, 2) if player == 0 else range(8, 10)
+            front_rows = range(2, 4) if player == 0 else range(7, 9)
+            all_rows = range(0, 4) if player == 0 else range(6, 10)
+
+            # Place the Flag strategically
+            while True:
+                row = random.choice(back_rows)
+                col = random.randint(0, 9)
+                if (row, col) not in self.lakes and self.board[row][col] is None:
+                    self.board[row][col] = {'rank': 'Flag', 'player': player}
+                    self.player_pieces[player].append((row, col))
+                    flag_position = (row, col)
+                    break
+
+            # Place Bombs around the Flag if possible
+            bombs_to_place = self.piece_counts['Bomb']
+            bomb_positions = [
+                (flag_position[0] + dr, flag_position[1] + dc)
+                for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]  # Adjacent cells
+                if 0 <= flag_position[0] + dr < 10 and 0 <= flag_position[1] + dc < 10
+            ]
+
+            for pos in bomb_positions:
+                if bombs_to_place > 0 and self.board[pos[0]][pos[1]] is None and pos not in self.lakes:
+                    self.board[pos[0]][pos[1]] = {'rank': 'Bomb', 'player': player}
+                    self.player_pieces[player].append(pos)
+                    bombs_to_place -= 1
+
+            # Place remaining Bombs at the frontline
+            for _ in range(bombs_to_place):
+                while True:
+                    row = random.choice(front_rows)
+                    col = random.randint(0, 9)
+                    if self.board[row][col] is None and (row, col) not in self.lakes:
+                        self.board[row][col] = {'rank': 'Bomb', 'player': player}
                         self.player_pieces[player].append((row, col))
                         break
 
+            # Place other pieces randomly
+            for piece, count in self.piece_counts.items():
+                if piece in ['Flag', 'Bomb']:
+                    continue  # Skip already placed pieces
+                for _ in range(count):
+                    while True:
+                        row = random.choice(all_rows)
+                        col = random.randint(0, 9)
+                        if self.board[row][col] is None and (row, col) not in self.lakes:
+                            self.board[row][col] = {'rank': piece, 'player': player}
+                            self.player_pieces[player].append((row, col))
+                            break
+
         return self.board
+
 
     
     def _render_board(self, player_id, full_board: bool = False):
         """
-        Renders the board state.
+        Renders the board state with fixed-width formatting for uniform alignment.
 
         Args:
             player_id (int): The player viewing the board.
             full_board (bool): Whether to render the full board or just the visible pieces.
         """
+        # Define abbreviations for each piece
+        piece_abbreviations = {
+            'Flag': 'FL', 'Bomb': 'BM', 'Spy': 'SP', 'Scout': 'SC', 'Miner': 'MN',
+            'Sergeant': 'SG', 'Lieutenant': 'LT', 'Captain': 'CP', 'Major': 'MJ',
+            'Colonel': 'CL', 'General': 'GN', 'Marshal': 'MS'
+        }
+
         res = []
-        column_headers = "    " + "  ".join([str(i) for i in range(10)])
+        column_headers = "   " + " ".join([f"{i:>3}" for i in range(10)])  # Align column numbers
         res.append(column_headers + "\n")
+
         for row in range(10):
             row_label = chr(row + 65)  # Convert row index to a letter (A, B, C, ...)
-            res.append(row_label + "  ")
+            row_render = [f"{row_label:<3}"]  # Add row label with fixed width
             for col in range(10):
                 if (row, col) in self.lakes:
-                    res.append(" ~ ")
+                    cell = "  ~ "  # Lakes
                 elif self.board[row][col] is None:
-                    res.append(" . ")
+                    cell = "  . "  # Empty space
                 else:
                     piece = self.board[row][col]
+                    abbreviation = piece_abbreviations[piece['rank']]
                     if full_board:
-                        res.append(f" {piece['rank'][0]} ")
+                        cell = f" {abbreviation.lower() if piece['player'] == 0 else abbreviation.upper()} "  # Full board view
+                    elif piece['player'] == player_id:
+                        displayed_piece = abbreviation.upper()
+                        cell = f" {displayed_piece} "
                     else:
-                        if piece['player'] == player_id:
-                            res.append(f" {piece['rank'][0]} ")
-                        else:
-                            res.append(" ? ")
-            res.append("\n")
+                        cell = "  ? "  # Hidden opponent piece
+                row_render.append(cell)
+
+            res.append("".join(row_render) + "\n")
 
         return "".join(res)
+
+
 
     def step(
         self,
@@ -208,51 +278,9 @@ class StrategoEnv(ta.Env):
             dest_row, dest_col = ord(dest_row) - 65, int(dest_col)
              
 
-            if not (0 <= src_row < 10 and 0 <= src_col < 10 and 0 <= dest_row < 10 and 0 <= dest_col < 10):
-                self.state.set_invalid_move(
-                    player_ids=[player_id],
-                    reasons=[f"Invalid action format. Player {player_id} did not input valid coordinates."]
-                )
-            elif self.board[src_row][src_col] is None or self.board[src_row][src_col]['player'] != player_id:
-                self.state.set_invalid_move(
-                    player_ids=[player_id],
-                    reasons=[f"Invalid action format. Player {player_id} must move one of their own pieces."]
-                )
-            elif self.board[src_row][src_col]['rank'].lower() == 'scout':
-                ## check if there's a piece in between the source and destination
-                if src_row == dest_row:
-                    for col in range(min(src_col, dest_col) + 1, max(src_col, dest_col)):
-                        if self.board[src_row][col] is not None:
-                            self.state.set_invalid_move(
-                                player_ids=[player_id],
-                                reasons=[f"Invalid action format. Player {player_id} cannot move a scout through other pieces."]
-                            )
-                            break
-                elif src_col == dest_col:
-                    for row in range(min(src_row, dest_row) + 1, max(src_row, dest_row)):
-                        if self.board[row][src_col] is not None:
-                            self.state.set_invalid_move(
-                                player_ids=[player_id],
-                                reasons=[f"Invalid action format. Player {player_id} cannot move a scout through other pieces."]
-                            )
-                            break
-            elif abs(src_row - dest_row) + abs(src_col - dest_col) != 1 and self.board[src_row][src_col]['rank'].lower() != 'scout':
-                ## !  - by right, only scouts can move more than one square at a time but we are not implementing that yet
-                self.state.set_invalid_move(
-                    player_ids=[player_id],
-                    reasons=[f"Invalid action format. Pieces can only move one square at a time."]
-                )
-            elif self.board[dest_row][dest_col] is not None and self.board[dest_row][dest_col]['player'] == player_id:
-                self.state.set_invalid_move(
-                    player_ids=[player_id],
-                    reasons=[f"Invalid action format. Player {player_id} cannot move onto their own piece."]
-                )
-            elif (dest_row, dest_col) in self.lakes:
-                self.state.set_invalid_move(
-                    player_ids=[player_id],
-                    reasons=[f"Invalid action format. Player {player_id} cannot move into the lake."]
-                )
-            else:
+            ## check if the source and destination are valid
+            if self._validate_move(player_id=player_id, src_row=src_row, src_col=src_col, dest_row=dest_row, dest_col=dest_col):
+
                 attacking_piece = self.board[src_row][src_col]
                 target_piece = self.board[dest_row][dest_col]
 
@@ -372,6 +400,11 @@ class StrategoEnv(ta.Env):
                             )
 
                     elif target_piece['rank'] == 'Flag':
+                        self.board[dest_row][dest_col] = attacking_piece
+                        self.board[src_row][src_col] = None
+                        self.player_pieces[player_id].remove((src_row, src_col))
+                        self.player_pieces[player_id].append((dest_row, dest_col))
+                        self.player_pieces[1 - player_id].remove((dest_row, dest_col))
                         ## game over
                         self.state.set_winners(
                             player_ids=[player_id],
@@ -466,6 +499,87 @@ class StrategoEnv(ta.Env):
         self.state.game_state["rendered_board"] = self._render_board(player_id=player_id, full_board=True)
 
         return self.state.step()
+    
+    def _validate_move(self, player_id, src_row, src_col, dest_row, dest_col):
+        """
+        Validates the move based on the game rules.
+
+        Args:
+            player_id (int): The ID of the player making the move.
+            src_row (int): The row of the source position.
+            src_col (int): The column of the source position.
+            dest_row (int): The row of the destination position.
+            dest_col (int): The column of the destination position.
+        """
+        if not (0 <= src_row < 10 and 0 <= src_col < 10 and 0 <= dest_row < 10 and 0 <= dest_col < 10):
+            self.state.set_invalid_move(
+                player_ids=[player_id],
+                reasons=[f"Invalid action format. Player {player_id} did not input valid coordinates."]
+            )
+            return False
+        
+        if self.board[src_row][src_col] is None or self.board[src_row][src_col]['player'] != player_id:
+            self.state.set_invalid_move(
+                player_ids=[player_id],
+                reasons=[f"Invalid action format. Player {player_id} must move one of their own pieces."]
+            )
+            return False
+        
+        if abs(src_row - dest_row) + abs(src_col - dest_col) != 1 and self.board[src_row][src_col]['rank'].lower() == 'scout':
+            ## check if there's a piece in between the source and destination
+            if src_row == dest_row:
+                for col in range(min(src_col, dest_col) + 1, max(src_col, dest_col)):
+                    if self.board[src_row][col] is not None:
+                        self.state.set_invalid_move(
+                            player_ids=[player_id],
+                            reasons=[f"Invalid action format. Player {player_id} cannot move a scout through other pieces."]
+                        )
+                        return False
+            elif src_col == dest_col:
+                for row in range(min(src_row, dest_row) + 1, max(src_row, dest_row)):
+                    if self.board[row][src_col] is not None:
+                        self.state.set_invalid_move(
+                            player_ids=[player_id],
+                            reasons=[f"Invalid action format. Player {player_id} cannot move a scout through other pieces."]
+                        )
+                        return False
+            else:
+                self.state.set_invalid_move(
+                    player_ids=[player_id],
+                    reasons=[f"Invalid action format. Player {player_id} cannot move a scout diagonally."]
+                )
+                return False
+            
+        if abs(src_row - dest_row) + abs(src_col - dest_col) != 1 and self.board[src_row][src_col]['rank'].lower() != 'scout':
+            ## !  - by right, only scouts can move more than one square at a time but we are not implementing that yet
+            self.state.set_invalid_move(
+                player_ids=[player_id],
+                reasons=[f"Invalid action format. Pieces, apart from scouts, can only move one square at a time."]
+            )
+            return False
+        
+        if self.board[dest_row][dest_col] is not None and self.board[dest_row][dest_col]['player'] == player_id:
+            self.state.set_invalid_move(
+                player_ids=[player_id],
+                reasons=[f"Invalid action format. Player {player_id} cannot move onto their own piece."]
+            )
+            return False
+        
+        if (dest_row, dest_col) in self.lakes:
+            self.state.set_invalid_move(
+                player_ids=[player_id],
+                reasons=[f"Invalid action format. Player {player_id} cannot move into the lake."]
+            )
+            return False
+        
+        if self.board[src_row][src_col]['rank'].lower() in ['bomb','flag']:
+            self.state.set_invalid_move(
+                player_ids=[player_id],
+                reasons=[f"Invalid action format. Player {player_id} cannot move a bomb or flag."]
+            )
+            return False
+        
+        return True
     
     def render(
         self

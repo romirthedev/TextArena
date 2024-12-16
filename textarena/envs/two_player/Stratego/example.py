@@ -25,8 +25,6 @@ while not done:
     # Get the current player id and observation
     player_id, observation = env.get_observation()
 
-    print("OBSERVATION")
-    print(observation)
     # Agent decides on an action based on the observation
     action = agents[player_id](observation)
 
