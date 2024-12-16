@@ -100,6 +100,7 @@ class PrettyRenderWrapper(RenderWrapper):
         """
         processed_lines = []
         for role, message in logs:
+            message = str(message) # Ensure message is a string
             str_message = message.replace("[", "\[")
             if role != -1:
                 # Player message
