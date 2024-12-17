@@ -68,13 +68,9 @@ const BaseGameContainer = ({ children, gameState, renderGameInfo }) => {
                 <h1 class="textarena-title">
                     <img src="http://127.0.0.1:8000/static/assets/TextArena-logo0.png" alt="TextArena Logo" />
                 </h1>
-
                 <h2 className="game-env-id">
-                        {gameState.env_id ? `${gameState.env_id}` : "No Environment ID"}
+                        {gameState.env_id ? `${gameState.env_id}` : "No Environment ID"} ({gameState.num_player_class} Edition)
                 </h2>
-
-                <br /> {/* Add this to create a line break */}
-
                 <a href={gameState.github_link}
                    className="github-link" 
                    target="_blank" 

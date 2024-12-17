@@ -14,25 +14,16 @@ body {
 
 .main-header {
     text-align: center;
-    margin-bottom: 10px;
-    padding: 10px 0;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    justify-content: center;
 }
 
-/* .title {
-    font-size: 48px;
-    font-weight: bold;
-    margin: 0 0 10px 0;
-    padding: 0;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    background: linear-gradient(45deg, #4CAF50, #2196F3);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-} */
-
 .textarena-title {
+    margin: 0; /* Reset default margin */
+    padding: 0; /* Reset default padding */
     font-family: Arial, sans-serif; /* Use Arial as the font */
     font-weight: 900; /* Boldest weight available for Arial */
     text-transform: uppercase;
@@ -50,14 +41,6 @@ body {
     margin: 0; /* Reset margin */
 }
 
-.textarena-title .text-green {
-    color: #00ff00; /* Neon Green */
-}
-
-.textarena-title .text-white {
-    color: #ffffff; /* White */
-}
-
 .game-env-id {
     font-size: 1.5rem; /* Larger font size for emphasis */
     font-weight: bold; /* Bold for prominence */
@@ -68,15 +51,6 @@ body {
     margin: 0px 0; /* Center align with margin */
     display: inline-block; /* Fit to content width */
     text-align: left;
-}
-
-/* Parent container */
-.main-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center content horizontally */
-    justify-content: center;
-    text-align: center; /* Ensures text is aligned */
 }
 
 /* GitHub link styles */
@@ -195,7 +169,7 @@ body {
 .chat-messages {
     height: 400px;
     overflow-y: auto;
-    background-color: #f5f5f5;
+    background-color: #222d37;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 10px;

@@ -136,6 +136,7 @@ class BaseRenderer(ABC):
         
         try:
             state = self.get_state()
+            state["num_player_class"] = self._get_num_player_class()
             state["env_id"] = self.env.env_id
             state["github_link"] = self._entry_point_to_github_url(entry_point=self.env.entry_point)
             state["player_names"] = self.player_names
@@ -252,3 +253,14 @@ class BaseRenderer(ABC):
         github_url = f"{base_url}/tree/main/{dir_path}"
         
         return github_url
+
+    def _get_num_player_class(self):
+        """
+        Get the class type for the number of players in the game.
+        """
+        if len(self.player_names) == 1:
+            return "Single Player"
+        elif len(self.player_names) == 2:
+            return "Two Player"
+        else:
+            return "Multiplayer"
