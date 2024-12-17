@@ -7,6 +7,20 @@ class TakRenderer(BaseRenderer):
 
     def __init__(self, env, player_names=None, port=8000, host="127.0.0.1"):
         super().__init__(env, player_names, port, host)
+        self._setup_piece_images()
+
+    def _setup_piece_images(self):
+        """Copy Tak piece images to the render directory"""
+        pieces_dir = self.static_dir / "pieces"
+        pieces_dir.mkdir(exist_ok=True)
+
+        # Copy piece images to the render directory
+        assets_dir = Path(__file__).parent / "assets" / "pieces"
+        if assets_dir.exists():
+            for piece in ["F0","F1","W0","W1","C0","C1"]:
+                src = assets_dir / f"{piece}.png"
+                if src.exists():
+                    shutil.copy(src, pieces_dir / f"{piece}.png")
 
     def get_state(self) -> dict:
         """Get Tak-specific state"""
@@ -38,25 +52,9 @@ class TakRenderer(BaseRenderer):
                             {board.map((row, rowIndex) => (
                                 <tr key={rowIndex}>
                                     {row.map((cell, cellIndex) => (
-                                        <td
-                                            key={cellIndex}
-                                            className={`cell ${((rowIndex + cellIndex) % 2 === 0) ? "light" : "dark"}`}
-                                        >
+                                        <td key={cellIndex} className={`cell ${((rowIndex + cellIndex) % 2 === 0) ? "light" : "dark"}`}>
                                             <div className="cell-content">
-                                                {Array.isArray(cell) && cell.length > 0 ? (
-                                                    <div className="cell-list">
-                                                        {/* Render the items in the original order */}
-                                                        {cell.map((item, itemIndex) => (
-                                                            <span key={itemIndex} className="cell-item">
-                                                                {item}
-                                                            </span>
-                                                        ))}
-                                                    </div>
-                                                ) : (
-                                                    <span className="cell-item">
-                                                        {cell !== null ? cell : ""}
-                                                    </span>
-                                                )}
+                                                {getPiece(cell)}
                                             </div>
                                         </td>
                                     ))}
@@ -67,6 +65,38 @@ class TakRenderer(BaseRenderer):
                 </div>
             );
         };
+
+        const getPiece = (cell) => {
+            // Base Case: If cell is a single piece, return its image
+            if (typeof cell === 'string') {
+                return (
+                    <img
+                        src={`/static/pieces/${cell}.png`}
+                        alt={cell}
+                        className="piece-img"
+                    />
+                );
+            }
+
+            // Recursive Case: If cell is an array, recursively render pieces
+            if (Array.isArray(cell)) {
+                return (
+                    <div className="stacked-pieces">
+                        {cell.slice().reverse().map((item, index) => (
+                            <div key={index} className="piece">
+                                {getPiece(item)}
+                            </div>
+                        ))}
+                    </div>
+                );
+            }
+
+            // Default Case: Return null for empty cells
+            return null;
+        };
+
+
+
         
         const renderTakGameInfo = (gameState) => {
             const currentPlayerName = gameState.player_names[gameState.current_player];
@@ -181,22 +211,36 @@ class TakRenderer(BaseRenderer):
             padding-top: 100%; /* Maintains aspect ratio */
         }
 
-        /* Content inside cells */
         .cell-content {
             position: absolute;
-            top: 0;
             left: 0;
             right: 0;
             bottom: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column-reverse; /* Stack items in reverse order */
+            align-items: center;            /* Center horizontally */
             font-size: 1.3rem;
             font-weight: bold;
             color: #333;
         }
 
 
+        .cell-list {
+            display: flex;       /* Use flexbox */
+            flex-direction: column-reverse; /* Stack items vertically */
+            justify-content: flex-end; /* Optional: Center items vertically */
+            align-items: bottom; /* Optional: Center items horizontally */
+        }
+
+        .cell-item {
+            display: block; /* Ensure each item takes its own line */
+            margin: 2px 0; /* Optional: Add vertical spacing between items */
+        }
+
+        .piece-img {
+            height: 25px;
+            object-fit: contain;
+        }
 
         .players {
             margin-bottom: 20px;
