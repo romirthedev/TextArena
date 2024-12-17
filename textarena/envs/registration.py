@@ -92,7 +92,7 @@ def make(env_id: str, **kwargs) -> Any:
         raise ValueError(f"Environment {env_id} not found in registry.")
     
     env_spec = ENV_REGISTRY[env_id]
-    
+
     # Resolve the entry point if it's a string
     if isinstance(env_spec.entry_point, str):
         module_path, class_name = env_spec.entry_point.split(":")
@@ -103,8 +103,19 @@ def make(env_id: str, **kwargs) -> Any:
             raise ImportError(f"Could not import {module_path}.{class_name}. Error: {e}")
     else:
         env_class = env_spec.entry_point
+
+    # Combine registered kwargs and user-provided kwargs
+    all_kwargs = {**env_spec.kwargs, **kwargs}
     
-    return env_class(**{**env_spec.kwargs, **kwargs})
+    # Instantiate the environment
+    env = env_class(**all_kwargs)
+    
+    # Dynamically attach the env_id
+    env.env_id = env_id
+    env.entry_point = env_spec.entry_point
+    
+    return env
+
 
 
 def classify_games(filter_category: str = "all"):

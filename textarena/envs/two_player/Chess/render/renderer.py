@@ -105,35 +105,24 @@ class ChessRenderer(BaseRenderer):
             return null;
         };
 
-        function GameInfo({ gameState }) {
-            const moveHistoryRef = React.useRef(null);
-            
-            React.useEffect(() => {
-                if (moveHistoryRef.current) {
-                    moveHistoryRef.current.scrollTop = moveHistoryRef.current.scrollHeight;
-                }
-            }, [gameState.move_stack]);
-
-            // Group moves into pairs (white and black)
+        const renderChessGameInfo = (gameState) => {
+            // Group moves into pairs
             const moveGroups = [];
             for (let i = 0; i < gameState.move_stack.length; i += 2) {
                 moveGroups.push({
-                    number: Math.floor(i/2) + 1,
+                    number: Math.floor(i / 2) + 1,
                     white: gameState.move_stack[i],
-                    black: gameState.move_stack[i + 1]
+                    black: gameState.move_stack[i + 1],
                 });
             }
 
             return (
-                <div className="info-container">
-                    <h2>Game Status</h2>
-                    <div className="status">
-                        <div>Current Turn: {gameState.current_player}</div>
-                        {gameState.is_check && <div className="alert">Check!</div>}
-                        {gameState.is_checkmate && <div className="alert">Checkmate!</div>}
-                        {gameState.is_stalemate && <div className="alert">Stalemate</div>}
-                    </div>
-                    
+                <div>
+                    <div>Current Turn: {gameState.current_player}</div>
+                    {gameState.is_check && <div className="alert">Check!</div>}
+                    {gameState.is_checkmate && <div className="alert">Checkmate!</div>}
+                    {gameState.is_stalemate && <div className="alert">Stalemate</div>}
+
                     <h3>Players</h3>
                     <div className="players">
                         {Object.entries(gameState.player_names).map(([id, name]) => (
@@ -142,9 +131,9 @@ class ChessRenderer(BaseRenderer):
                             </div>
                         ))}
                     </div>
-                    
+
                     <h3>Move History</h3>
-                    <div className="move-history" ref={moveHistoryRef}>
+                    <div className="move-history">
                         {moveGroups.map((group, i) => (
                             <div key={i} className="move-pair">
                                 <span className="move-number">{group.number}.</span>
@@ -155,38 +144,14 @@ class ChessRenderer(BaseRenderer):
                     </div>
                 </div>
             );
-        }
-
-        const ChatHistory = ({ gameState }) => {
-            const messagesEndRef = React.useRef(null);
-            
-            React.useEffect(() => {
-                messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-            }, [gameState.chat_history]);
-
-            return (
-                <div className="chat-container">
-                    <h2>Game Chat</h2>
-                    <div className="chat-messages">
-                        {gameState.chat_history.map((msg, i) => (
-                            <div key={i} className={`chat-message ${msg.player_id === 0 ? 'white' : 'black'}`}>
-                                <div className="player-name">
-                                    {gameState.player_names[msg.player_id]}:
-                                </div>
-                                <div>{msg.message}</div>
-                            </div>
-                        ))}
-                        <div ref={messagesEndRef} />
-                    </div>
-                </div>
-            );
         };
+
 
         // Main app
         const ChessGame = () => {
             console.log('Initializing ChessGame');
             const [gameState, setGameState] = React.useState(null);
-            
+
             React.useEffect(() => {
                 const ws = new WebSocket(`ws://${window.location.host}/ws`);
                 ws.onopen = () => console.log('WebSocket connected');
@@ -204,17 +169,16 @@ class ChessRenderer(BaseRenderer):
             }
 
             return (
-                <BaseGameContainer gameState={gameState}>
+                <BaseGameContainer gameState={gameState} renderGameInfo={renderChessGameInfo}>
                     <div className="chess-layout">
                         <div className="main-content">
                             <ChessBoard fen={gameState.fen} />
-                            <GameInfo gameState={gameState} />
                         </div>
-                        <ChatHistory gameState={gameState} />
                     </div>
                 </BaseGameContainer>
             );
         };
+
 
         // Initialize the app
         console.log('Initializing React app');
@@ -298,7 +262,7 @@ class ChessRenderer(BaseRenderer):
         }
 
         .white-player { color: #ffffff; }
-        .black-player { color: #a0a0a0; }
+        .black-player { color: #000000; }
 
         .move-history {
             font-family: monospace;

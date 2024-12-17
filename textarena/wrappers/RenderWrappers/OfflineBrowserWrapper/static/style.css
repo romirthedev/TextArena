@@ -1,7 +1,7 @@
 body {
-    background-color: #2B2B2B;
-    color: #FFFFFF;
-    font-family: Arial, sans-serif;
+    background-color: #1f2023; /* Darker and more saturated background */
+    color: #f0f0f0; /* Lighter text color */
+    font-family: 'Lexend', sans-serif;
     margin: 0;
     padding: 20px;
 }
@@ -18,7 +18,7 @@ body {
     padding: 20px 0;
 }
 
-.title {
+/* .title {
     font-size: 48px;
     font-weight: bold;
     margin: 0 0 10px 0;
@@ -30,7 +30,27 @@ body {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+} */
+
+.textarena-title {
+    font-family: Arial, sans-serif; /* Use Arial as the font */
+    font-weight: 900; /* Boldest weight available for Arial */
+    text-transform: uppercase;
+    font-size: 3rem; /* Adjust as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 2px; /* Adds slight spacing */
 }
+
+.textarena-title .text-green {
+    color: #00ff00; /* Neon Green */
+}
+
+.textarena-title .text-white {
+    color: #ffffff; /* White */
+}
+
 
 .github-link {
     display: inline-block;
@@ -92,18 +112,129 @@ body {
     background: rgba(255, 255, 255, 0.1);
 }
 
-.chat-container {
-    margin-top: 20px;
-    background: #363636;
+.game-env-id {
+    font-size: 1.5rem; /* Larger font size for emphasis */
+    font-weight: bold; /* Bold for prominence */
+    text-transform: uppercase; /* Makes it look professional */
+    letter-spacing: 1.5px; /* Slight letter spacing */
+    color: #32CD32; /* Professional green (or replace with preferred color) */
+    padding: 10px 15px; /* Add inner spacing */
+    margin: 10px auto; /* Center align with margin */
+    display: inline-block; /* Fit to content width */
+    text-align: left;
+}
+
+.game-layout {
+    display: flex;
+    align-items: stretch;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    gap: 20px;
+}
+
+/* Game Main Content */
+.game-main-content,
+.game-info-container {
+    margin: 10; /* Remove default margin */
+    padding: 0 ; /* Remove default padding */
+}
+
+/* Game Info Wrapper */
+.game-info-wrapper {
+    position: relative;
+    width: 500px;
+    margin: 20px auto; /* Center the container */
+}
+
+/* Game Info Container */
+.game-info-container {
+    background-color: #aaaaaa; /* Light gray background */
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     padding: 20px;
-    border-radius: 8px;
+    position: relative;
+    z-index: 1; /* Keep below the header */
+}
+
+/* Game Info Content */
+.game-info-content {
+    font-size: 1rem;
+    color: #333; /* Dark gray text */
+}
+
+/* General chat container styling */
+.chat-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    font-family: 'Lexend', Arial, sans-serif;
 }
 
 .chat-messages {
-    height: 300px;
+    height: 400px;
     overflow-y: auto;
-    background: #2B2B2B;
-    padding: 15px;
-    border-radius: 4px;
-    margin-top: 10px;
+    background-color: #f5f5f5;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    flex-direction: column;
+}
+
+/* Chat bubble styling */
+.chat-bubble {
+    max-width: 75%;
+    margin: 10px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    line-height: 1.3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    word-wrap: break-word;
+
+    /* Dynamically set bubble color */
+    background-color: var(--bubble-color, #333);
+    color: #fff;
+}
+
+/* Set color dynamically via data attribute */
+.chat-bubble[data-color] {
+    --bubble-color: attr(data-color color); /* Define custom color */
+    background-color: var(--bubble-color);
+}
+
+/* Left-aligned bubbles */
+.chat-bubble.left::before,
+.chat-bubble.right::before {
+    content: "";
+    position: absolute;
+    bottom: 10px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+}
+
+/* Tail for left-aligned bubbles */
+.chat-bubble.left::before {
+    left: -10px;
+    border-right: 10px solid var(--bubble-color);
+}
+
+/* Tail for right-aligned bubbles */
+.chat-bubble.right::before {
+    right: -10px;
+    border-left: 10px solid var(--bubble-color);
+}
+
+/* Player name */
+.player-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.timestamp {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.5);
 }
