@@ -14,8 +14,8 @@ body {
 
 .main-header {
     text-align: center;
-    margin-bottom: 40px;
-    padding: 20px 0;
+    margin-bottom: 10px;
+    padding: 10px 0;
 }
 
 /* .title {
@@ -43,6 +43,13 @@ body {
     letter-spacing: 2px; /* Adds slight spacing */
 }
 
+.textarena-title img {
+    width: 400px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+    display: inline-block; /* Ensures no extra line-height spacing */
+    margin: 0; /* Reset margin */
+}
+
 .textarena-title .text-green {
     color: #00ff00; /* Neon Green */
 }
@@ -51,9 +58,31 @@ body {
     color: #ffffff; /* White */
 }
 
+.game-env-id {
+    font-size: 1.5rem; /* Larger font size for emphasis */
+    font-weight: bold; /* Bold for prominence */
+    text-transform: uppercase; /* Makes it look professional */
+    letter-spacing: 1.5px; /* Slight letter spacing */
+    color: #32CD32; /* Professional green (or replace with preferred color) */
+    padding: 0; /* Add inner spacing */
+    margin: 0px 0; /* Center align with margin */
+    display: inline-block; /* Fit to content width */
+    text-align: left;
+}
 
+/* Parent container */
+.main-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    justify-content: center;
+    text-align: center; /* Ensures text is aligned */
+}
+
+/* GitHub link styles */
 .github-link {
-    display: inline-block;
+    display: flex; /* Align image and text inline */
+    align-items: center; /* Vertically center items */
     color: #9e9e9e;
     text-decoration: none;
     font-size: 16px;
@@ -66,6 +95,12 @@ body {
 .github-link:hover {
     color: #ffffff;
     background: rgba(255, 255, 255, 0.1);
+}
+
+.github-link img {
+    width: 30px;
+    height: 30px;
+    margin-right: 8px; /* Space between the image and text */
 }
 
 .game-container {
@@ -110,18 +145,6 @@ body {
 
 .close-button:hover {
     background: rgba(255, 255, 255, 0.1);
-}
-
-.game-env-id {
-    font-size: 1.5rem; /* Larger font size for emphasis */
-    font-weight: bold; /* Bold for prominence */
-    text-transform: uppercase; /* Makes it look professional */
-    letter-spacing: 1.5px; /* Slight letter spacing */
-    color: #32CD32; /* Professional green (or replace with preferred color) */
-    padding: 10px 15px; /* Add inner spacing */
-    margin: 10px auto; /* Center align with margin */
-    display: inline-block; /* Fit to content width */
-    text-align: left;
 }
 
 .game-layout {

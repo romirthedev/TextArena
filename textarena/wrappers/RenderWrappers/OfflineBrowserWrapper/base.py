@@ -74,7 +74,7 @@ class BaseRenderer(ABC):
         server.run()
 
     def _setup_static_files(self):
-        """Set up static CSS and JS files for the user interface."""
+        """Set up static CSS, JS, and additional assets for the user interface."""
         # Ensure the static directory exists and is empty
         if self.static_dir.exists():
             for file in self.static_dir.glob("*"):
@@ -85,6 +85,18 @@ class BaseRenderer(ABC):
         else:
             self.static_dir.mkdir(parents=True, exist_ok=True)
         
+        # Create the assets directory
+        assets_dir = self.static_dir / "assets"
+        assets_dir.mkdir(parents=True, exist_ok=True)
+
+        # Copy the GitHub logo into the static_temp/assets folder
+        for image in self.base_dir.glob("static/*.png"):
+            shutil.copy(image, assets_dir)
+            # source_logo_path = self.base_dir / "static" / "github-mark-white.png"
+            # target_logo_path = assets_dir / "github-mark-white.png"
+            # if source_logo_path.exists():
+            #     shutil.copy(source_logo_path, target_logo_path)
+
         # Combine base and custom JavaScript
         base_static = self.base_dir / "static"
         base_js = (base_static / "app.js").read_text() if (base_static / "app.js").exists() else ""
@@ -101,6 +113,7 @@ class BaseRenderer(ABC):
             f.write(base_css)
             if custom_css:
                 f.write("\n/* Custom Game-Specific CSS */\n" + custom_css)
+
 
 
     def get_custom_js(self) -> str:

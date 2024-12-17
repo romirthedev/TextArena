@@ -66,10 +66,7 @@ const BaseGameContainer = ({ children, gameState, renderGameInfo }) => {
         <div className="page-container">
             <header className="main-header">
                 <h1 class="textarena-title">
-                    <span class="text-green">tex</span>
-                    <span class="text-white">T</span>
-                    <span class="text-white">A</span>
-                    <span class="text-green">rena</span>
+                    <img src="http://127.0.0.1:8000/static/assets/TextArena-logo0.png" alt="TextArena Logo" />
                 </h1>
 
                 <h2 className="game-env-id">
@@ -82,11 +79,11 @@ const BaseGameContainer = ({ children, gameState, renderGameInfo }) => {
                    className="github-link" 
                    target="_blank" 
                    rel="noopener noreferrer">
-                    {/* <img 
-                        src="/assets/github-mark-white.png"
-                        alt="GitHub Logo" 
+                    <img
+                        src="http://127.0.0.1:8000/static/assets/github-mark-white.png"
+                        alt="GitHub Logo"
                         className="github-logo"
-                    /> */}
+                    />
                     View on GitHub
                 </a>
             </header>
