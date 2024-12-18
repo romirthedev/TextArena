@@ -107,8 +107,8 @@ class TakRenderer(BaseRenderer):
                     <h3>Player Pieces</h3>
                     <div className="players">
                          {Object.entries(gameState.player_names).map(([id, name]) => (
-                            <div key={id}>
-                                {name} - 
+                            <div key={id} className={id === '0' ? 'white-player' : 'black-player'}>
+                                {name} ({id === '0' ? 'White' : 'Black'}) - 
                                 Stones: {gameState.player_pieces[id]?.stones}, 
                                 Capstones: {gameState.player_pieces[id]?.capstones}
                             </div>
@@ -245,4 +245,8 @@ class TakRenderer(BaseRenderer):
         .players {
             margin-bottom: 20px;
         }
+
+        .white-player { color: #ffffff; }
+        .black-player { color: #000000; }
+        
         """
