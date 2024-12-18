@@ -276,7 +276,6 @@ class BaseRenderer(ABC):
         module_path, _ = entry_point.split(":") 
         module_path = "/".join(module_path.split(".")[:-1])
         readme_path = Path(module_path) / "README.md"
-        print(readme_path)
         if readme_path.exists():
             with open(readme_path, "r") as f:
                 content = f.read()
