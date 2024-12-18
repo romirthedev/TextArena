@@ -1,4 +1,4 @@
-from textarena.wrappers.RenderWrappers.OfflineBrowserWrapper.base import BaseRenderer
+from textarena.wrappers.RenderWrappers.PrettyRenderWrapper.base import BaseRenderer
 import shutil
 from pathlib import Path
 
@@ -248,5 +248,5 @@ class TakRenderer(BaseRenderer):
 
         .white-player { color: #ffffff; }
         .black-player { color: #000000; }
-        
+
         """

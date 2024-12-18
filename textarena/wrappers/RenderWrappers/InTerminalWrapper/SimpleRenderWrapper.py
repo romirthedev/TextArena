@@ -12,10 +12,10 @@ from rich.text import Text
 
 from textarena.core import Env, Message, RenderWrapper, State
 
-__all__ = ["PrettyRenderWrapper"]
+__all__ = ["SimpleRenderWrapper"]
 
 
-class PrettyRenderWrapper(RenderWrapper):
+class SimpleRenderWrapper(RenderWrapper):
     """A general-purpose render wrapper that provides a formatted and enhanced rendering of any environment.
 
     This wrapper uses the 'rich' library to render the game state and logs in a more readable and visually appealing way.
@@ -46,7 +46,7 @@ class PrettyRenderWrapper(RenderWrapper):
         agent_identifiers: Optional[Dict[int, str]] = None,
     ):
         """
-        Initialize the PrettyRenderWrapper.
+        Initialize the SimpleRenderWrapper.
 
         Args:
             env (Env): The environment to wrap.
