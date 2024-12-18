@@ -21,9 +21,18 @@ class UltimateTicTacToeEnv(ta.Env):
         )
 
         ## attach render objects
-        # self.board_state_render = ...
         self.render_keys = ['rendered_board']
 
+        ## Initialise the board
+        self.board = None
+
+        ## initialise the move history
+        self.move_history = []
+
+    @property
+    def offline_renderer(self):
+        from textarena.envs.two_player.UltimateTicTacToe.render.renderer import UltimateTicTacToeRenderer
+        return UltimateTicTacToeRenderer
 
     def reset(
         self,
@@ -136,7 +145,7 @@ class UltimateTicTacToeEnv(ta.Env):
         )
 
         ## set up the action search pattern
-        action_search_pattern = re.compile(r"\[(\d) (\d) (\d)\]") # [micro_board row col]
+        action_search_pattern = re.compile(r"\[\s*(\d)\s*,?\s*(\d)\s*,?\s*(\d)\s*\]") # takes in the format [micro_board, row, col], with or without commas
         match = action_search_pattern.search(action)
 
         if match is None:
@@ -201,6 +210,9 @@ class UltimateTicTacToeEnv(ta.Env):
         """
         ## make move
         self.board[micro_board][row][col] = self.current_player
+
+        ## append to move history
+        self.move_history.append((micro_board, row, col))
 
         ## determine the next micro board
         self.next_micro_board = row * 3 + col
