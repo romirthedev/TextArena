@@ -129,6 +129,48 @@ body {
     gap: 20px;
 }
 
+.game-instructions-layout {
+    margin-bottom: 20px;
+}
+
+/* Container styling */
+.game-desc {
+    background: #1e1e2f; /* Dark background */
+    color: #f8f9fa; /* Light text */
+    border: 2px solid #444; /* Border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 16px 24px; /* Uniform padding for all sides */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+/* List styling */
+.game-desc ul {
+    list-style-position: outside; /* Align bullets outside the padding */
+    margin: 0;
+    padding: 0 0 0 16px; /* Add padding to indent the list */
+}
+
+/* List item styling */
+.game-desc li {
+    margin: 8px 0; /* Spacing between points */
+    padding-left: 8px; /* Smaller padding between bullet and text */
+    line-height: 1.6; /* Improve line spacing */
+    position: relative;
+}
+
+/* Custom bullets for consistency */
+.game-desc li::marker {
+    color: #ffcc00; /* Bullet color */
+    font-size: 1em; /* Bullet size */
+}
+
+/* Bold text for headings */
+.game-desc strong {
+    font-weight: bold;
+    color: #f8f9fa; /* Bold text color */
+}
+
+
 /* Game Main Content */
 .game-main-content,
 .game-info-container {
@@ -140,7 +182,14 @@ body {
 .game-info-wrapper {
     position: relative;
     width: 500px;
-    margin: 20px auto; /* Center the container */
+    margin: 10px auto 0 auto; /* Reduce top margin and center horizontally */
+}
+
+/* Game Info Header */
+.game-info-header {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 20px; /* Adds space between header and container */
 }
 
 /* Game Info Container */
@@ -150,7 +199,7 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     padding: 20px;
     position: relative;
-    z-index: 1; /* Keep below the header */
+    z-index: 1;
 }
 
 /* Game Info Content */
@@ -158,6 +207,7 @@ body {
     font-size: 1rem;
     color: #333; /* Dark gray text */
 }
+
 
 /* General chat container styling */
 .chat-container {

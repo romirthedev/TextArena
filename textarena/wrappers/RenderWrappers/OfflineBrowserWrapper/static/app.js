@@ -65,8 +65,14 @@ const BaseGameContainer = ({ children, gameState, renderGameInfo }) => {
     return (
         <div className="page-container">
             <header className="main-header">
-                <h1 class="textarena-title">
-                    <img src="http://127.0.0.1:8000/static/assets/TextArena-logo0.png" alt="TextArena Logo" />
+                <h1 className="textarena-title">
+                    <a href="https://github.com/LeonGuertler/TextArena" target="_blank" rel="noopener noreferrer">
+                        <img 
+                            src="http://127.0.0.1:8000/static/assets/TextArena-logo0.png" 
+                            alt="TextArena Logo"
+                            style={{ cursor: "pointer" }} 
+                        />
+                    </a>
                 </h1>
                 <h2 className="game-env-id">
                         {gameState.env_id ? `${gameState.env_id}` : "No Environment ID"} ({gameState.num_player_class} Edition)
@@ -83,6 +89,15 @@ const BaseGameContainer = ({ children, gameState, renderGameInfo }) => {
                     View on GitHub
                 </a>
             </header>
+
+            <div className="game-instructions-layout">
+                <h2 className="game-gameplay-header">Gameplay Instructions</h2>
+                    <div className="game-gameplay-container">
+                        <div className="game-gameplay-content">
+                            <div className="game-desc" dangerouslySetInnerHTML={{ __html: gameState.gameplay_instructions }}></div>
+                        </div>
+                    </div>
+            </div>
 
             <div className="game-layout">
                 {/* Main children components */}

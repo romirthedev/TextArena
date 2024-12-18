@@ -10,6 +10,7 @@ from abc import ABC, abstractmethod
 from typing import Any, Dict, Set, Optional
 import shutil
 from datetime import datetime
+import re
 
 
 class BaseRenderer(ABC):
@@ -139,6 +140,7 @@ class BaseRenderer(ABC):
             state["num_player_class"] = self._get_num_player_class()
             state["env_id"] = self.env.env_id
             state["github_link"] = self._entry_point_to_github_url(entry_point=self.env.entry_point)
+            state["gameplay_instructions"] = self._get_gameplay_instructions()
             state["player_names"] = self.player_names
             state["chat_history"] = self.get_chat_with_colors(self.chat_history, self.player_names)
             state["end_game_state"] = self.end_game_state
@@ -264,3 +266,31 @@ class BaseRenderer(ABC):
             return "Two Player"
         else:
             return "Multiplayer"
+        
+    def _get_gameplay_instructions(self):
+        """
+        Get the gameplay instructions for the game.
+        """
+        ## use the entry point to get the readme file
+        entry_point = self.env.entry_point
+        module_path, _ = entry_point.split(":") 
+        module_path = "/".join(module_path.split(".")[:-1])
+        readme_path = Path(module_path) / "README.md"
+        print(readme_path)
+        if readme_path.exists():
+            with open(readme_path, "r") as f:
+                content = f.read()
+
+        ## extract the instructions from the readme file
+        pattern = r'## Gameplay\n(.*?)(?=\n##|\Z)'
+        match = re.search(pattern, content, re.DOTALL)
+
+        if match:
+            text = match.group(1).strip()
+            text = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', text)
+            text = re.sub(r'^\s*-\s(.*)', r'<li>\1</li>', text, flags=re.MULTILINE)
+            text = f"<ul>{text.strip()}</ul>"
+            return text
+        else:
+            return "No gameplay instructions available."
+            
