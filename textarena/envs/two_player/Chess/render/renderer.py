@@ -28,7 +28,7 @@ class ChessRenderer(BaseRenderer):
             board = self.env.board
             return {
                 "fen": board.fen() if board else "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
-                "current_player": "White" if board and board.turn else "White",
+                "current_player": "White" if self.env.state.current_player_id == 0 else "Black",
                 "is_check": board.is_check() if board else False,
                 "is_checkmate": board.is_checkmate() if board else False,
                 "is_stalemate": board.is_stalemate() if board else False,
