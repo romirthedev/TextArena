@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>textarena.envs.two_player.Stratego package &#8212; TextArena 1.0.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5ecbeea2" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=686e5160" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
     <script src="../_static/documentation_options.js?v=8d563738"></script>
@@ -38,96 +38,14 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
 </section>
-<section id="module-textarena.envs.two_player.Stratego.env">
-<span id="textarena-envs-two-player-stratego-env-module"></span><h2>textarena.envs.two_player.Stratego.env module<a class="headerlink" href="#module-textarena.envs.two_player.Stratego.env" title="Link to this heading">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="textarena.envs.two_player.Stratego.env.StrategoEnv">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.envs.two_player.Stratego.env.</span></span><span class="sig-name descname"><span class="pre">StrategoEnv</span></span><a class="reference internal" href="../_modules/textarena/envs/two_player/Stratego/env.html#StrategoEnv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.envs.two_player.Stratego.env.StrategoEnv" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="textarena.html#textarena.core.Env" title="textarena.core.Env"><code class="xref py py-class docutils literal notranslate"><span class="pre">Env</span></code></a></p>
-<p>A two-player implementation of the board game Stratego.</p>
-<dl class="py property">
-<dt class="sig sig-object py" id="textarena.envs.two_player.Stratego.env.StrategoEnv.offline_renderer">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">offline_renderer</span></span><a class="headerlink" href="#textarena.envs.two_player.Stratego.env.StrategoEnv.offline_renderer" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="textarena.envs.two_player.Stratego.env.StrategoEnv.reset">
-<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/envs/two_player/Stratego/env.html#StrategoEnv.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.envs.two_player.Stratego.env.StrategoEnv.reset" title="Link to this definition">¶</a></dt>
-<dd><p>Reset the environment to start a new game.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>seed</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The seed for the random number generator.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="textarena.envs.two_player.Stratego.env.StrategoEnv.step">
-<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/textarena/envs/two_player/Stratego/env.html#StrategoEnv.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.envs.two_player.Stratego.env.StrategoEnv.step" title="Link to this definition">¶</a></dt>
-<dd><p>Execute an action in the environment.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>action</strong> (<em>str</em>) – The action to be executed</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Whether the game has concluded.
-Info: Additional information.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="textarena.envs.two_player.Stratego.env.StrategoEnv.terminal_render_keys">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">terminal_render_keys</span></span><a class="headerlink" href="#textarena.envs.two_player.Stratego.env.StrategoEnv.terminal_render_keys" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<section id="textarena-envs-two-player-stratego-env-module">
+<h2>textarena.envs.two_player.Stratego.env module<a class="headerlink" href="#textarena-envs-two-player-stratego-env-module" title="Link to this heading">¶</a></h2>
 </section>
-<section id="module-textarena.envs.two_player.Stratego.sandbox">
-<span id="textarena-envs-two-player-stratego-sandbox-module"></span><h2>textarena.envs.two_player.Stratego.sandbox module<a class="headerlink" href="#module-textarena.envs.two_player.Stratego.sandbox" title="Link to this heading">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="textarena.envs.two_player.Stratego.sandbox.Stratego">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.envs.two_player.Stratego.sandbox.</span></span><span class="sig-name descname"><span class="pre">Stratego</span></span><a class="reference internal" href="../_modules/textarena/envs/two_player/Stratego/sandbox.html#Stratego"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.envs.two_player.Stratego.sandbox.Stratego" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="textarena.envs.two_player.Stratego.sandbox.Stratego.check_win">
-<span class="sig-name descname"><span class="pre">check_win</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/envs/two_player/Stratego/sandbox.html#Stratego.check_win"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.envs.two_player.Stratego.sandbox.Stratego.check_win" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="textarena.envs.two_player.Stratego.sandbox.Stratego.display_board">
-<span class="sig-name descname"><span class="pre">display_board</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/envs/two_player/Stratego/sandbox.html#Stratego.display_board"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.envs.two_player.Stratego.sandbox.Stratego.display_board" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="textarena.envs.two_player.Stratego.sandbox.Stratego.move_piece">
-<span class="sig-name descname"><span class="pre">move_piece</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/envs/two_player/Stratego/sandbox.html#Stratego.move_piece"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.envs.two_player.Stratego.sandbox.Stratego.move_piece" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="textarena.envs.two_player.Stratego.sandbox.Stratego.play">
-<span class="sig-name descname"><span class="pre">play</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/envs/two_player/Stratego/sandbox.html#Stratego.play"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.envs.two_player.Stratego.sandbox.Stratego.play" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="textarena.envs.two_player.Stratego.sandbox.Stratego.setup_pieces">
-<span class="sig-name descname"><span class="pre">setup_pieces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/envs/two_player/Stratego/sandbox.html#Stratego.setup_pieces"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.envs.two_player.Stratego.sandbox.Stratego.setup_pieces" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="textarena.envs.two_player.Stratego.sandbox.Stratego.update_piece_position">
-<span class="sig-name descname"><span class="pre">update_piece_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old_pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/envs/two_player/Stratego/sandbox.html#Stratego.update_piece_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.envs.two_player.Stratego.sandbox.Stratego.update_piece_position" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<section id="textarena-envs-two-player-stratego-sandbox-module">
+<h2>textarena.envs.two_player.Stratego.sandbox module<a class="headerlink" href="#textarena-envs-two-player-stratego-sandbox-module" title="Link to this heading">¶</a></h2>
 </section>
-<section id="module-textarena.envs.two_player.Stratego">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-textarena.envs.two_player.Stratego" title="Link to this heading">¶</a></h2>
+<section id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
 </section>
 </section>
 
