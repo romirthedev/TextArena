@@ -41,12 +41,24 @@ jobs:
           sphinx-apidoc -o source/ ../textarena/
           make html
 
-      # Step 5: Commit and Push the Updated Docs
+      # Step 5: Clone the target repository
+      - name: Clone Target Repository
+        run: |
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/LeonGuertler/textarena-frontend.git target-repo
+
+      # Step 6: Copy the generated documentation to the target repository
+      - name: Copy Documentation to Target Repository
+        run: |
+          rm -rf target-repo/docs
+          cp -r docs/_build/html target-repo/docs
+
+      # Step 7: Commit and Push the Updated Docs
       - name: Commit and Push Changes
         run: |
+          cd target-repo
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add docs/_build
+          git add docs
           git diff --cached --quiet || git commit -m "Update Sphinx documentation"
           git push origin experiment/generate-docs-test
 
