@@ -36,6 +36,7 @@ jobs:
       # Step 4: Generate Sphinx documentation
       - name: Build Sphinx Documentation
         run: |
+          source venv/bin/activate  # Activate the virtual environment
           cd docs
           sphinx-apidoc -o source/ ../textarena/
           make html
