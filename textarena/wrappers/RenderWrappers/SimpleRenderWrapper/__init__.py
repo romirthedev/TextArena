@@ -1,0 +1,1 @@
+from textarena.wrappers.RenderWrappers.SimpleRenderWrapper.render import SimpleRenderWrapper
