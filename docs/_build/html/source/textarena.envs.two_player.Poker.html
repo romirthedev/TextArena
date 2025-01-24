@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>textarena.envs.two_player.Poker package &#8212; TextArena 1.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="textarena.envs.two_player.SpellingBee package" href="textarena.envs.two_player.SpellingBee.html" />
+    <link rel="prev" title="textarena.envs.two_player.Negotiation package" href="textarena.envs.two_player.Negotiation.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="textarena-envs-two-player-poker-package">
+<h1>textarena.envs.two_player.Poker package<a class="headerlink" href="#textarena-envs-two-player-poker-package" title="Link to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-textarena.envs.two_player.Poker.env">
+<span id="textarena-envs-two-player-poker-env-module"></span><h2>textarena.envs.two_player.Poker.env module<a class="headerlink" href="#module-textarena.envs.two_player.Poker.env" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="textarena.envs.two_player.Poker.env.PokerEnv">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.envs.two_player.Poker.env.</span></span><span class="sig-name descname"><span class="pre">PokerEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starting_chips</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">small_blind</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">big_blind</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/envs/two_player/Poker/env.html#PokerEnv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.envs.two_player.Poker.env.PokerEnv" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="textarena.html#textarena.core.Env" title="textarena.core.Env"><code class="xref py py-class docutils literal notranslate"><span class="pre">Env</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.envs.two_player.Poker.env.PokerEnv.determine_winner">
+<span class="sig-name descname"><span class="pre">determine_winner</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/textarena/envs/two_player/Poker/env.html#PokerEnv.determine_winner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.envs.two_player.Poker.env.PokerEnv.determine_winner" title="Link to this definition">¶</a></dt>
+<dd><p>Determine the overall winner of the game and their final chip count.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(winner_id, final_chips)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple[int, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="textarena.envs.two_player.Poker.env.PokerEnv.offline_renderer">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">offline_renderer</span></span><a class="headerlink" href="#textarena.envs.two_player.Poker.env.PokerEnv.offline_renderer" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.envs.two_player.Poker.env.PokerEnv.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/envs/two_player/Poker/env.html#PokerEnv.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.envs.two_player.Poker.env.PokerEnv.reset" title="Link to this definition">¶</a></dt>
+<dd><p>Reset the full game to its initial state</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.envs.two_player.Poker.env.PokerEnv.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/textarena/envs/two_player/Poker/env.html#PokerEnv.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.envs.two_player.Poker.env.PokerEnv.step" title="Link to this definition">¶</a></dt>
+<dd><p>Process a player’s action.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="textarena.envs.two_player.Poker.env.PokerEnv.terminal_render_keys">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">terminal_render_keys</span></span><a class="headerlink" href="#textarena.envs.two_player.Poker.env.PokerEnv.terminal_render_keys" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-textarena.envs.two_player.Poker">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-textarena.envs.two_player.Poker" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">TextArena</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">textarena</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="textarena.html">textarena package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">textarena</a><ul>
+  <li><a href="textarena.html">textarena package</a><ul>
+  <li><a href="textarena.envs.html">textarena.envs package</a><ul>
+  <li><a href="textarena.envs.two_player.html">textarena.envs.two_player package</a><ul>
+      <li>Previous: <a href="textarena.envs.two_player.Negotiation.html" title="previous chapter">textarena.envs.two_player.Negotiation package</a></li>
+      <li>Next: <a href="textarena.envs.two_player.SpellingBee.html" title="next chapter">textarena.envs.two_player.SpellingBee package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Leon Guertler, Bobby Cheng.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.1.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/source/textarena.envs.two_player.Poker.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

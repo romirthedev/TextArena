@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>textarena package &#8212; TextArena 1.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="textarena.agents package" href="textarena.agents.html" />
+    <link rel="prev" title="textarena" href="modules.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="textarena-package">
+<h1>textarena package<a class="headerlink" href="#textarena-package" title="Link to this heading">¶</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="textarena.agents.html">textarena.agents package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="textarena.agents.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="textarena.agents.html#module-textarena.agents.basic_agents">textarena.agents.basic_agents module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="textarena.agents.html#textarena.agents.basic_agents.CerebrasAgent"><code class="docutils literal notranslate"><span class="pre">CerebrasAgent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.agents.html#textarena.agents.basic_agents.HFLocalAgent"><code class="docutils literal notranslate"><span class="pre">HFLocalAgent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.agents.html#textarena.agents.basic_agents.HumanAgent"><code class="docutils literal notranslate"><span class="pre">HumanAgent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.agents.html#textarena.agents.basic_agents.OpenRouterAgent"><code class="docutils literal notranslate"><span class="pre">OpenRouterAgent</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="textarena.agents.html#module-textarena.agents.wrappers">textarena.agents.wrappers module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="textarena.agents.html#textarena.agents.wrappers.ChainAgentWrapper"><code class="docutils literal notranslate"><span class="pre">ChainAgentWrapper</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.agents.html#textarena.agents.wrappers.InterpreterAgentWrapper"><code class="docutils literal notranslate"><span class="pre">InterpreterAgentWrapper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="textarena.agents.html#textarena.agents.wrappers.InterpreterAgentWrapper.prompt_executed_code"><code class="docutils literal notranslate"><span class="pre">InterpreterAgentWrapper.prompt_executed_code()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.agents.html#textarena.agents.wrappers.InterpreterAgentWrapper.prompt_log"><code class="docutils literal notranslate"><span class="pre">InterpreterAgentWrapper.prompt_log()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.agents.html#textarena.agents.wrappers.ThoughtAgentWrapper"><code class="docutils literal notranslate"><span class="pre">ThoughtAgentWrapper</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="textarena.agents.html#module-textarena.agents">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="textarena.agents.html#textarena.agents.CerebrasAgent"><code class="docutils literal notranslate"><span class="pre">CerebrasAgent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.agents.html#textarena.agents.HFLocalAgent"><code class="docutils literal notranslate"><span class="pre">HFLocalAgent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.agents.html#textarena.agents.HumanAgent"><code class="docutils literal notranslate"><span class="pre">HumanAgent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.agents.html#textarena.agents.OpenRouterAgent"><code class="docutils literal notranslate"><span class="pre">OpenRouterAgent</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="textarena.api.html">textarena.api package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="textarena.api.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="textarena.api.html#module-textarena.api.api_client">textarena.api.api_client module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.api_client.check_matchmaking_status"><code class="docutils literal notranslate"><span class="pre">check_matchmaking_status()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.api_client.check_turn"><code class="docutils literal notranslate"><span class="pre">check_turn()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.api_client.get_results"><code class="docutils literal notranslate"><span class="pre">get_results()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.api_client.join_matchmaking"><code class="docutils literal notranslate"><span class="pre">join_matchmaking()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.api_client.leave_matchmaking"><code class="docutils literal notranslate"><span class="pre">leave_matchmaking()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.api_client.register_online_model"><code class="docutils literal notranslate"><span class="pre">register_online_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.api_client.submit_step"><code class="docutils literal notranslate"><span class="pre">submit_step()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.api_client.wrapped_request"><code class="docutils literal notranslate"><span class="pre">wrapped_request()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="textarena.api.html#module-textarena.api.game_manager">textarena.api.game_manager module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.game_manager.make_online"><code class="docutils literal notranslate"><span class="pre">make_online()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="textarena.api.html#module-textarena.api.online_env">textarena.api.online_env module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.online_env.OnlineEnv"><code class="docutils literal notranslate"><span class="pre">OnlineEnv</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="textarena.api.html#textarena.api.online_env.OnlineEnv.env_id"><code class="docutils literal notranslate"><span class="pre">OnlineEnv.env_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.api.html#textarena.api.online_env.OnlineEnv.model_name"><code class="docutils literal notranslate"><span class="pre">OnlineEnv.model_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.api.html#textarena.api.online_env.OnlineEnv.model_token"><code class="docutils literal notranslate"><span class="pre">OnlineEnv.model_token</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.api.html#textarena.api.online_env.OnlineEnv.game_id"><code class="docutils literal notranslate"><span class="pre">OnlineEnv.game_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.api.html#textarena.api.online_env.OnlineEnv.player_id"><code class="docutils literal notranslate"><span class="pre">OnlineEnv.player_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.api.html#textarena.api.online_env.OnlineEnv.close"><code class="docutils literal notranslate"><span class="pre">OnlineEnv.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.api.html#textarena.api.online_env.OnlineEnv.get_observation"><code class="docutils literal notranslate"><span class="pre">OnlineEnv.get_observation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.api.html#textarena.api.online_env.OnlineEnv.reset"><code class="docutils literal notranslate"><span class="pre">OnlineEnv.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.api.html#textarena.api.online_env.OnlineEnv.step"><code class="docutils literal notranslate"><span class="pre">OnlineEnv.step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.online_env.OnlineState"><code class="docutils literal notranslate"><span class="pre">OnlineState</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="textarena.api.html#module-textarena.api.utils">textarena.api.utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.utils.initialize_env"><code class="docutils literal notranslate"><span class="pre">initialize_env()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.utils.store_token"><code class="docutils literal notranslate"><span class="pre">store_token()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.utils.try_loading_token"><code class="docutils literal notranslate"><span class="pre">try_loading_token()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="textarena.api.html#module-textarena.api">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.check_matchmaking_status"><code class="docutils literal notranslate"><span class="pre">check_matchmaking_status()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.check_turn"><code class="docutils literal notranslate"><span class="pre">check_turn()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.get_results"><code class="docutils literal notranslate"><span class="pre">get_results()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.join_matchmaking"><code class="docutils literal notranslate"><span class="pre">join_matchmaking()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.leave_matchmaking"><code class="docutils literal notranslate"><span class="pre">leave_matchmaking()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.make_online"><code class="docutils literal notranslate"><span class="pre">make_online()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.register_online_model"><code class="docutils literal notranslate"><span class="pre">register_online_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.api.html#textarena.api.submit_step"><code class="docutils literal notranslate"><span class="pre">submit_step()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="textarena.envs.html">textarena.envs package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="textarena.envs.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="textarena.envs.single_player.html">textarena.envs.single_player package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="textarena.envs.single_player.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.envs.single_player.html#module-textarena.envs.single_player">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.envs.two_player.html">textarena.envs.two_player package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="textarena.envs.two_player.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.envs.two_player.html#module-textarena.envs.two_player">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="textarena.envs.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="textarena.envs.html#module-textarena.envs.registration">textarena.envs.registration module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="textarena.envs.html#textarena.envs.registration.EnvSpec"><code class="docutils literal notranslate"><span class="pre">EnvSpec</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="textarena.envs.html#textarena.envs.registration.EnvSpec.entry_point"><code class="docutils literal notranslate"><span class="pre">EnvSpec.entry_point</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.envs.html#textarena.envs.registration.EnvSpec.id"><code class="docutils literal notranslate"><span class="pre">EnvSpec.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.envs.html#textarena.envs.registration.EnvSpec.kwargs"><code class="docutils literal notranslate"><span class="pre">EnvSpec.kwargs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.envs.html#textarena.envs.registration.EnvSpec.make"><code class="docutils literal notranslate"><span class="pre">EnvSpec.make()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.envs.html#textarena.envs.registration.check_env_exists"><code class="docutils literal notranslate"><span class="pre">check_env_exists()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.envs.html#textarena.envs.registration.classify_games"><code class="docutils literal notranslate"><span class="pre">classify_games()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.envs.html#textarena.envs.registration.find_highest_version"><code class="docutils literal notranslate"><span class="pre">find_highest_version()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.envs.html#textarena.envs.registration.make"><code class="docutils literal notranslate"><span class="pre">make()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.envs.html#textarena.envs.registration.pprint_registry"><code class="docutils literal notranslate"><span class="pre">pprint_registry()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.envs.html#textarena.envs.registration.pprint_registry_detailed"><code class="docutils literal notranslate"><span class="pre">pprint_registry_detailed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.envs.html#textarena.envs.registration.register"><code class="docutils literal notranslate"><span class="pre">register()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="textarena.envs.html#module-textarena.envs">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="textarena.game_makers.html">textarena.game_makers package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="textarena.game_makers.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="textarena.game_makers.html#module-textarena.game_makers.gpt_judges">textarena.game_makers.gpt_judges module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="textarena.game_makers.html#textarena.game_makers.gpt_judges.GPTGamemaster"><code class="docutils literal notranslate"><span class="pre">GPTGamemaster</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.game_makers.html#textarena.game_makers.gpt_judges.GPTGamemasterAction"><code class="docutils literal notranslate"><span class="pre">GPTGamemasterAction</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="textarena.game_makers.html#textarena.game_makers.gpt_judges.GPTGamemasterAction.get_summary"><code class="docutils literal notranslate"><span class="pre">GPTGamemasterAction.get_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.game_makers.html#textarena.game_makers.gpt_judges.GPTGamemasterAction.respond_to_action"><code class="docutils literal notranslate"><span class="pre">GPTGamemasterAction.respond_to_action()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.game_makers.html#textarena.game_makers.gpt_judges.GPTGamemasterAction.set_initial_context"><code class="docutils literal notranslate"><span class="pre">GPTGamemasterAction.set_initial_context()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.game_makers.html#textarena.game_makers.gpt_judges.GPTJudge"><code class="docutils literal notranslate"><span class="pre">GPTJudge</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.game_makers.html#textarena.game_makers.gpt_judges.GPTJudgeVote"><code class="docutils literal notranslate"><span class="pre">GPTJudgeVote</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="textarena.game_makers.html#textarena.game_makers.gpt_judges.GPTJudgeVote.evaluate"><code class="docutils literal notranslate"><span class="pre">GPTJudgeVote.evaluate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="textarena.game_makers.html#module-textarena.game_makers">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="textarena.wrappers.html">textarena.wrappers package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="textarena.wrappers.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="textarena.wrappers.ActionWrappers.html">textarena.wrappers.ActionWrappers package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="textarena.wrappers.ActionWrappers.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.wrappers.ActionWrappers.html#module-textarena.wrappers.ActionWrappers.clip_action_wrapper">textarena.wrappers.ActionWrappers.clip_action_wrapper module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.wrappers.ActionWrappers.html#module-textarena.wrappers.ActionWrappers">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.wrappers.ObservationWrappers.html">textarena.wrappers.ObservationWrappers package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="textarena.wrappers.ObservationWrappers.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.wrappers.ObservationWrappers.html#module-textarena.wrappers.ObservationWrappers.llm_observation_wrapper">textarena.wrappers.ObservationWrappers.llm_observation_wrapper module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.wrappers.ObservationWrappers.html#module-textarena.wrappers.ObservationWrappers">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.wrappers.RenderWrappers.html">textarena.wrappers.RenderWrappers package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="textarena.wrappers.RenderWrappers.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.wrappers.RenderWrappers.html#module-textarena.wrappers.RenderWrappers">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="textarena.wrappers.html#module-textarena.wrappers">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="textarena.wrappers.html#textarena.wrappers.ClipCharactersActionWrapper"><code class="docutils literal notranslate"><span class="pre">ClipCharactersActionWrapper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="textarena.wrappers.html#textarena.wrappers.ClipCharactersActionWrapper.action"><code class="docutils literal notranslate"><span class="pre">ClipCharactersActionWrapper.action()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.wrappers.html#textarena.wrappers.ClipWordsActionWrapper"><code class="docutils literal notranslate"><span class="pre">ClipWordsActionWrapper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="textarena.wrappers.html#textarena.wrappers.ClipWordsActionWrapper.action"><code class="docutils literal notranslate"><span class="pre">ClipWordsActionWrapper.action()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.wrappers.html#textarena.wrappers.LLMObservationWrapper"><code class="docutils literal notranslate"><span class="pre">LLMObservationWrapper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="textarena.wrappers.html#textarena.wrappers.LLMObservationWrapper.observation"><code class="docutils literal notranslate"><span class="pre">LLMObservationWrapper.observation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="textarena.wrappers.html#textarena.wrappers.SimpleRenderWrapper"><code class="docutils literal notranslate"><span class="pre">SimpleRenderWrapper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="textarena.wrappers.html#textarena.wrappers.SimpleRenderWrapper.GAME_KEYWORD_COLOR"><code class="docutils literal notranslate"><span class="pre">SimpleRenderWrapper.GAME_KEYWORD_COLOR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.wrappers.html#textarena.wrappers.SimpleRenderWrapper.GAME_MESSAGE_COLOR"><code class="docutils literal notranslate"><span class="pre">SimpleRenderWrapper.GAME_MESSAGE_COLOR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.wrappers.html#textarena.wrappers.SimpleRenderWrapper.PLAYER_COLORS"><code class="docutils literal notranslate"><span class="pre">SimpleRenderWrapper.PLAYER_COLORS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="textarena.wrappers.html#textarena.wrappers.SimpleRenderWrapper.step"><code class="docutils literal notranslate"><span class="pre">SimpleRenderWrapper.step()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-textarena.core">
+<span id="textarena-core-module"></span><h2>textarena.core module<a class="headerlink" href="#module-textarena.core" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="textarena.core.ActionWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.core.</span></span><span class="sig-name descname"><span class="pre">ActionWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#textarena.core.Env" title="textarena.core.Env"><span class="pre">Env</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#ActionWrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.ActionWrapper" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#textarena.core.Wrapper" title="textarena.core.Wrapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wrapper</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.ActionWrapper.action">
+<span class="sig-name descname"><span class="pre">action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/textarena/core.html#ActionWrapper.action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.ActionWrapper.action" title="Link to this definition">¶</a></dt>
+<dd><p>Transforms the action.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>action</strong> (<em>str</em>) – The original action.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The transformed action.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.ActionWrapper.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/textarena/core.html#ActionWrapper.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.ActionWrapper.step" title="Link to this definition">¶</a></dt>
+<dd><p>Performs a single step in the environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>player_id</strong> (<em>int</em>) – The ID of the player taking the action.</p></li>
+<li><p><strong>action</strong> (<em>str</em>) – The action to be taken by the player.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>done (bool): Whether the episode has concluded</p></li>
+<li><p>info (Dict[str, Any]): Additional information about the environment.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple containing</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="textarena.core.Agent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.core.</span></span><span class="sig-name descname"><span class="pre">Agent</span></span><a class="reference internal" href="../_modules/textarena/core.html#Agent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.Agent" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Generic agent class that defines the basic structure of an agent.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="textarena.core.AgentWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.core.</span></span><span class="sig-name descname"><span class="pre">AgentWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">agent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#textarena.core.Agent" title="textarena.core.Agent"><span class="pre">Agent</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#AgentWrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.AgentWrapper" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#textarena.core.Agent" title="textarena.core.Agent"><code class="xref py py-class docutils literal notranslate"><span class="pre">Agent</span></code></a></p>
+<p>TODO</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="textarena.core.Env">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.core.</span></span><span class="sig-name descname"><span class="pre">Env</span></span><a class="reference internal" href="../_modules/textarena/core.html#Env"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.Env" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Abstract base class for text-based game environments.</p>
+<p>This class outlines the interface for the environment, including methods for resetting the environment,
+stepping through the environment (taking actions), and rendering the environment state.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.Env.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#Env.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.Env.close" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="textarena.core.Env.game_state">
+<span class="sig-name descname"><span class="pre">game_state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#textarena.core.State" title="textarena.core.State"><span class="pre">State</span></a></em><a class="headerlink" href="#textarena.core.Env.game_state" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.Env.get_observation">
+<span class="sig-name descname"><span class="pre">get_observation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#Env.get_observation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.Env.get_observation" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.Env.reset">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#Env.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.Env.reset" title="Link to this definition">¶</a></dt>
+<dd><p>Resets the environment to an initial state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>observations</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><em>int</em><em>, </em><em>str</em><em>]</em><em>]</em>) – Initial observations for the players.</p></li>
+<li><p><strong>seed</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Seed for the random number generator to ensure reproducibility.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Depending on implementation, should return initial observations and any additional info.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.Env.step">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/textarena/core.html#Env.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.Env.step" title="Link to this definition">¶</a></dt>
+<dd><p>Performs a single step in the environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>player_id</strong> (<em>int</em>) – The ID of the player taking the action.</p></li>
+<li><p><strong>action</strong> (<em>str</em>) – The action to be taken by the player.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>done (bool): Whether the episode has concluded</p></li>
+<li><p>info (Dict[str, Any]): Additional information about the environment.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple containing</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="textarena.core.GameMaker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.core.</span></span><span class="sig-name descname"><span class="pre">GameMaker</span></span><a class="reference internal" href="../_modules/textarena/core.html#GameMaker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.GameMaker" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>TODO</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="textarena.core.GameMasterAction">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.core.</span></span><span class="sig-name descname"><span class="pre">GameMasterAction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#GameMasterAction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.GameMasterAction" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Interface for a game master that responds to player actions and maintains game continuity.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.GameMasterAction.respond_to_action">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">respond_to_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player_action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/textarena/core.html#GameMasterAction.respond_to_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.GameMasterAction.respond_to_action" title="Link to this definition">¶</a></dt>
+<dd><p>Respond to the player’s action (e.g., question in “20 Questions”) based on the game’s state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>player_action</strong> (<em>str</em>) – The action or question posed by the player.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The game master’s response.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="textarena.core.JudgeVote">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.core.</span></span><span class="sig-name descname"><span class="pre">JudgeVote</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optinos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_judges</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#JudgeVote"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.JudgeVote" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>TODO</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.JudgeVote.evaluate">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transcript</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/textarena/core.html#JudgeVote.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.JudgeVote.evaluate" title="Link to this definition">¶</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="textarena.core.ObservationWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.core.</span></span><span class="sig-name descname"><span class="pre">ObservationWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#textarena.core.Env" title="textarena.core.Env"><span class="pre">Env</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#ObservationWrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.ObservationWrapper" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#textarena.core.Wrapper" title="textarena.core.Wrapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wrapper</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.ObservationWrapper.get_observation">
+<span class="sig-name descname"><span class="pre">get_observation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#ObservationWrapper.get_observation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.ObservationWrapper.get_observation" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.ObservationWrapper.observation">
+<span class="sig-name descname"><span class="pre">observation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#ObservationWrapper.observation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.ObservationWrapper.observation" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="textarena.core.RenderWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.core.</span></span><span class="sig-name descname"><span class="pre">RenderWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#textarena.core.Env" title="textarena.core.Env"><span class="pre">Env</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#RenderWrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.RenderWrapper" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#textarena.core.Wrapper" title="textarena.core.Wrapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wrapper</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.RenderWrapper.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/textarena/core.html#RenderWrapper.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.RenderWrapper.step" title="Link to this definition">¶</a></dt>
+<dd><p>Performs a single step in the environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>player_id</strong> (<em>int</em>) – The ID of the player taking the action.</p></li>
+<li><p><strong>action</strong> (<em>str</em>) – The action to be taken by the player.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>done (bool): Whether the episode has concluded</p></li>
+<li><p>info (Dict[str, Any]): Additional information about the environment.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple containing</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="textarena.core.State">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.core.</span></span><span class="sig-name descname"><span class="pre">State</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_players</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_turns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role_mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_truncated</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#State"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.State" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class to manage the state of the game,
+including observations, rewards, and some game logic.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.State.add_log">
+<span class="sig-name descname"><span class="pre">add_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#State.add_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.State.add_log" title="Link to this definition">¶</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.State.add_observation">
+<span class="sig-name descname"><span class="pre">add_observation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">for_logging</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#State.add_observation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.State.add_observation" title="Link to this definition">¶</a></dt>
+<dd><p>Add an observation message to the observations and logs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>from_id</strong> (<em>int</em>) – The ID of the sender (player or game).</p></li>
+<li><p><strong>to_id</strong> (<em>int</em>) – The ID of the receiver (-1 for all players).</p></li>
+<li><p><strong>message</strong> (<em>str</em>) – The message content.</p></li>
+<li><p><strong>for_logging</strong> (<em>bool</em>) – If True, the message is added to the logs.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.State.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#State.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.State.close" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.State.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player_prompt_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">executable_on_reset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#State.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.State.reset" title="Link to this definition">¶</a></dt>
+<dd><p>Reset the game state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>game_state</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Initial game state to be set.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.State.set_draw">
+<span class="sig-name descname"><span class="pre">set_draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#State.set_draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.State.set_draw" title="Link to this definition">¶</a></dt>
+<dd><p>Declare the game as a draw.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>reason</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Reason for the draw.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.State.set_invalid_move">
+<span class="sig-name descname"><span class="pre">set_invalid_move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reasons</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#State.set_invalid_move"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.State.set_invalid_move" title="Link to this definition">¶</a></dt>
+<dd><p>Handle an invalid move made by a player.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>player_ids</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – List of player IDs who made an invalid move.</p></li>
+<li><p><strong>reason</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Reason for the invalid move.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.State.set_winners">
+<span class="sig-name descname"><span class="pre">set_winners</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#State.set_winners"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.State.set_winners" title="Link to this definition">¶</a></dt>
+<dd><p>Set the winners of the game.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>player_ids</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – List of player IDs who have won.</p></li>
+<li><p><strong>reason</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Reason for winning.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.State.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotate_player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#State.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.State.step" title="Link to this definition">¶</a></dt>
+<dd><p>Advance the game state by one turn.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>rotate_player</strong> (<em>bool</em>) – Whether to rotate the current player after the step.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Tuple[</dt><dd><p>bool,                               # done
+Dict[str, Any],                     # info</p>
+</dd>
+</dl>
+<p>]: The updated game state after the step.</p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="textarena.core.Wrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.core.</span></span><span class="sig-name descname"><span class="pre">Wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#textarena.core.Env" title="textarena.core.Env"><span class="pre">Env</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#Wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.Wrapper" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#textarena.core.Env" title="textarena.core.Env"><code class="xref py py-class docutils literal notranslate"><span class="pre">Env</span></code></a></p>
+<p>Base class for environment wrappers.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.Wrapper.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#Wrapper.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.Wrapper.close" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.Wrapper.get_observation">
+<span class="sig-name descname"><span class="pre">get_observation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#Wrapper.get_observation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.Wrapper.get_observation" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.Wrapper.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#Wrapper.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.Wrapper.reset" title="Link to this definition">¶</a></dt>
+<dd><p>Resets the environment to an initial state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>observations</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><em>int</em><em>, </em><em>str</em><em>]</em><em>]</em>) – Initial observations for the players.</p></li>
+<li><p><strong>seed</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Seed for the random number generator to ensure reproducibility.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Depending on implementation, should return initial observations and any additional info.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.core.Wrapper.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/textarena/core.html#Wrapper.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.core.Wrapper.step" title="Link to this definition">¶</a></dt>
+<dd><p>Performs a single step in the environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>player_id</strong> (<em>int</em>) – The ID of the player taking the action.</p></li>
+<li><p><strong>action</strong> (<em>str</em>) – The action to be taken by the player.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>done (bool): Whether the episode has concluded</p></li>
+<li><p>info (Dict[str, Any]): Additional information about the environment.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple containing</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-textarena.utils">
+<span id="textarena-utils-module"></span><h2>textarena.utils module<a class="headerlink" href="#module-textarena.utils" title="Link to this heading">¶</a></h2>
+<p>Utilities used across games and environments.
+Expect functionality to be spun off into separate modules in the future.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="textarena.utils.batch_open_router_generate">
+<span class="sig-prename descclassname"><span class="pre">textarena.utils.</span></span><span class="sig-name descname"><span class="pre">batch_open_router_generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_history</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">gen_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/textarena/utils.html#batch_open_router_generate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.utils.batch_open_router_generate" title="Link to this definition">¶</a></dt>
+<dd><p>Batched version of open_router_generate.
+Also wraps the async function in a synchronous function.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="textarena.utils.open_router_generate">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.utils.</span></span><span class="sig-name descname"><span class="pre">open_router_generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message_history</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">gen_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/textarena/utils.html#open_router_generate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.utils.open_router_generate" title="Link to this definition">¶</a></dt>
+<dd><p>Generate a response from a model behind openrouter model.</p>
+</dd></dl>
+
+</section>
+<section id="module-textarena">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-textarena" title="Link to this heading">¶</a></h2>
+<p>Root __init__ of textarena</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="textarena.ActionWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.</span></span><span class="sig-name descname"><span class="pre">ActionWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#textarena.core.Env" title="textarena.core.Env"><span class="pre">Env</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#ActionWrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.ActionWrapper" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#textarena.core.Wrapper" title="textarena.core.Wrapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wrapper</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.ActionWrapper.action">
+<span class="sig-name descname"><span class="pre">action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/textarena/core.html#ActionWrapper.action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.ActionWrapper.action" title="Link to this definition">¶</a></dt>
+<dd><p>Transforms the action.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>action</strong> (<em>str</em>) – The original action.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The transformed action.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.ActionWrapper.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/textarena/core.html#ActionWrapper.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.ActionWrapper.step" title="Link to this definition">¶</a></dt>
+<dd><p>Performs a single step in the environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>player_id</strong> (<em>int</em>) – The ID of the player taking the action.</p></li>
+<li><p><strong>action</strong> (<em>str</em>) – The action to be taken by the player.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>done (bool): Whether the episode has concluded</p></li>
+<li><p>info (Dict[str, Any]): Additional information about the environment.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple containing</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="textarena.AgentWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.</span></span><span class="sig-name descname"><span class="pre">AgentWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">agent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#textarena.core.Agent" title="textarena.core.Agent"><span class="pre">Agent</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#AgentWrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.AgentWrapper" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#textarena.core.Agent" title="textarena.core.Agent"><code class="xref py py-class docutils literal notranslate"><span class="pre">Agent</span></code></a></p>
+<p>TODO</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="textarena.Env">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.</span></span><span class="sig-name descname"><span class="pre">Env</span></span><a class="reference internal" href="../_modules/textarena/core.html#Env"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.Env" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Abstract base class for text-based game environments.</p>
+<p>This class outlines the interface for the environment, including methods for resetting the environment,
+stepping through the environment (taking actions), and rendering the environment state.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.Env.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#Env.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.Env.close" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="textarena.Env.game_state">
+<span class="sig-name descname"><span class="pre">game_state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#textarena.core.State" title="textarena.core.State"><span class="pre">State</span></a></em><a class="headerlink" href="#textarena.Env.game_state" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.Env.get_observation">
+<span class="sig-name descname"><span class="pre">get_observation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#Env.get_observation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.Env.get_observation" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.Env.reset">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#Env.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.Env.reset" title="Link to this definition">¶</a></dt>
+<dd><p>Resets the environment to an initial state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>observations</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><em>int</em><em>, </em><em>str</em><em>]</em><em>]</em>) – Initial observations for the players.</p></li>
+<li><p><strong>seed</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Seed for the random number generator to ensure reproducibility.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Depending on implementation, should return initial observations and any additional info.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.Env.step">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/textarena/core.html#Env.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.Env.step" title="Link to this definition">¶</a></dt>
+<dd><p>Performs a single step in the environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>player_id</strong> (<em>int</em>) – The ID of the player taking the action.</p></li>
+<li><p><strong>action</strong> (<em>str</em>) – The action to be taken by the player.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>done (bool): Whether the episode has concluded</p></li>
+<li><p>info (Dict[str, Any]): Additional information about the environment.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple containing</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="textarena.ObservationWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.</span></span><span class="sig-name descname"><span class="pre">ObservationWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#textarena.core.Env" title="textarena.core.Env"><span class="pre">Env</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#ObservationWrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.ObservationWrapper" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#textarena.core.Wrapper" title="textarena.core.Wrapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wrapper</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.ObservationWrapper.get_observation">
+<span class="sig-name descname"><span class="pre">get_observation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#ObservationWrapper.get_observation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.ObservationWrapper.get_observation" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.ObservationWrapper.observation">
+<span class="sig-name descname"><span class="pre">observation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#ObservationWrapper.observation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.ObservationWrapper.observation" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="textarena.RenderWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.</span></span><span class="sig-name descname"><span class="pre">RenderWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#textarena.core.Env" title="textarena.core.Env"><span class="pre">Env</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#RenderWrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.RenderWrapper" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#textarena.core.Wrapper" title="textarena.core.Wrapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wrapper</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.RenderWrapper.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/textarena/core.html#RenderWrapper.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.RenderWrapper.step" title="Link to this definition">¶</a></dt>
+<dd><p>Performs a single step in the environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>player_id</strong> (<em>int</em>) – The ID of the player taking the action.</p></li>
+<li><p><strong>action</strong> (<em>str</em>) – The action to be taken by the player.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>done (bool): Whether the episode has concluded</p></li>
+<li><p>info (Dict[str, Any]): Additional information about the environment.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple containing</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="textarena.Wrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">textarena.</span></span><span class="sig-name descname"><span class="pre">Wrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#textarena.core.Env" title="textarena.core.Env"><span class="pre">Env</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#Wrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.Wrapper" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#textarena.core.Env" title="textarena.core.Env"><code class="xref py py-class docutils literal notranslate"><span class="pre">Env</span></code></a></p>
+<p>Base class for environment wrappers.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.Wrapper.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#Wrapper.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.Wrapper.close" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.Wrapper.get_observation">
+<span class="sig-name descname"><span class="pre">get_observation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#Wrapper.get_observation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.Wrapper.get_observation" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.Wrapper.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/core.html#Wrapper.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.Wrapper.reset" title="Link to this definition">¶</a></dt>
+<dd><p>Resets the environment to an initial state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>observations</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><em>int</em><em>, </em><em>str</em><em>]</em><em>]</em>) – Initial observations for the players.</p></li>
+<li><p><strong>seed</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Seed for the random number generator to ensure reproducibility.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Depending on implementation, should return initial observations and any additional info.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="textarena.Wrapper.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/textarena/core.html#Wrapper.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.Wrapper.step" title="Link to this definition">¶</a></dt>
+<dd><p>Performs a single step in the environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>player_id</strong> (<em>int</em>) – The ID of the player taking the action.</p></li>
+<li><p><strong>action</strong> (<em>str</em>) – The action to be taken by the player.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>done (bool): Whether the episode has concluded</p></li>
+<li><p>info (Dict[str, Any]): Additional information about the environment.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple containing</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="textarena.check_env_exists">
+<span class="sig-prename descclassname"><span class="pre">textarena.</span></span><span class="sig-name descname"><span class="pre">check_env_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/envs/registration.html#check_env_exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.check_env_exists" title="Link to this definition">¶</a></dt>
+<dd><p>Check if an environment exists in the registry.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="textarena.find_highest_version">
+<span class="sig-prename descclassname"><span class="pre">textarena.</span></span><span class="sig-name descname"><span class="pre">find_highest_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/envs/registration.html#find_highest_version"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.find_highest_version" title="Link to this definition">¶</a></dt>
+<dd><p>Find the highest registered version of an environment by its name.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="textarena.make">
+<span class="sig-prename descclassname"><span class="pre">textarena.</span></span><span class="sig-name descname"><span class="pre">make</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/textarena/envs/registration.html#make"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.make" title="Link to this definition">¶</a></dt>
+<dd><p>Create an environment instance using the registered ID.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="textarena.make_online">
+<span class="sig-prename descclassname"><span class="pre">textarena.</span></span><span class="sig-name descname"><span class="pre">make_online</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queue_time_limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="textarena.api.html#textarena.api.online_env.OnlineEnv" title="textarena.api.online_env.OnlineEnv"><span class="pre">OnlineEnv</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/textarena/api/game_manager.html#make_online"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.make_online" title="Link to this definition">¶</a></dt>
+<dd><p>Join the matchmaking queue and wait until a match is found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>env_id</strong> (<em>str</em>) – Environment ID to join.</p></li>
+<li><p><strong>model_name</strong> (<em>str</em>) – Name of the model.</p></li>
+<li><p><strong>model_token</strong> (<em>str</em>) – Authentication token for the model.</p></li>
+<li><p><strong>queue_time_limit</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em><em>, </em><em>optional</em>) – Max time to wait in queue. Defaults to 300.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Initialized online environment and player ID.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[<a class="reference internal" href="textarena.api.html#textarena.api.online_env.OnlineEnv" title="textarena.api.online_env.OnlineEnv">OnlineEnv</a>, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="textarena.pprint_registry">
+<span class="sig-prename descclassname"><span class="pre">textarena.</span></span><span class="sig-name descname"><span class="pre">pprint_registry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/envs/registration.html#pprint_registry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.pprint_registry" title="Link to this definition">¶</a></dt>
+<dd><p>Pretty print the current registry of environments.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="textarena.pprint_registry_detailed">
+<span class="sig-prename descclassname"><span class="pre">textarena.</span></span><span class="sig-name descname"><span class="pre">pprint_registry_detailed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/envs/registration.html#pprint_registry_detailed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.pprint_registry_detailed" title="Link to this definition">¶</a></dt>
+<dd><p>Pretty print the registry with additional details like kwargs.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="textarena.register">
+<span class="sig-prename descclassname"><span class="pre">textarena.</span></span><span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/textarena/envs/registration.html#register"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#textarena.register" title="Link to this definition">¶</a></dt>
+<dd><p>Register an environment with a given ID.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">TextArena</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">textarena</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">textarena package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">textarena</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">textarena</a></li>
+      <li>Next: <a href="textarena.agents.html" title="next chapter">textarena.agents package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Leon Guertler, Bobby Cheng.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.1.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/source/textarena.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

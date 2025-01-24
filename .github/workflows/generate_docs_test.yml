@@ -31,11 +31,12 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
-          pip install sphinx sphinx-autobuild
+          pip install sphinx sphinx-autobuild playwright
 
       # Step 4: Generate Sphinx documentation
       - name: Build Sphinx Documentation
         run: |
+          source venv/bin/activate  # Activate the virtual environment
           cd docs
           sphinx-apidoc -o source/ ../textarena/
           make html

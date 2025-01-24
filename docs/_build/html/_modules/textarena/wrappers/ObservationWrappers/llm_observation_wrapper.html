@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>textarena.wrappers.ObservationWrappers.llm_observation_wrapper &#8212; TextArena 1.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../../../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for textarena.wrappers.ObservationWrappers.llm_observation_wrapper</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">textarena</span> <span class="k">as</span> <span class="nn">ta</span> 
+<span class="kn">from</span> <span class="nn">textarena.core</span> <span class="kn">import</span> <span class="n">ObservationWrapper</span><span class="p">,</span> <span class="n">Env</span><span class="p">,</span> <span class="n">Observations</span><span class="p">,</span> <span class="n">Info</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;LLMObservationWrapper&quot;</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="LLMObservationWrapper">
+<a class="viewcode-back" href="../../../../source/textarena.wrappers.ObservationWrappers.html#textarena.wrappers.LLMObservationWrapper">[docs]</a>
+<span class="k">class</span> <span class="nc">LLMObservationWrapper</span><span class="p">(</span><span class="n">ObservationWrapper</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A wrapper for converting environment observations into formatted strings suitable</span>
+<span class="sd">    for large language models (LLMs). It ensures that duplicate observations are not</span>
+<span class="sd">    added to the full observations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">Env</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the LLMObservationWrapper.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            env (Env): The environment to wrap.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">full_observations</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">state</span>
+
+    <span class="k">def</span> <span class="nf">_convert_obs_to_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">player_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Observations</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts the full observations into formatted strings for each recipient.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Observations: A dictionary mapping recipient IDs to their formatted observation strings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">str_observation</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="n">player_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_observations</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">sender_id</span><span class="p">,</span> <span class="n">message</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_observations</span><span class="p">[</span><span class="n">player_id</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">sender_id</span> <span class="o">==</span> <span class="n">ta</span><span class="o">.</span><span class="n">GAME_ID</span><span class="p">:</span>
+                    <span class="n">sender_name</span> <span class="o">=</span> <span class="s2">&quot;GAME&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">sender_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">role_mapping</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sender_id</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Player </span><span class="si">{</span><span class="n">sender_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">str_observation</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[</span><span class="si">{</span><span class="n">sender_name</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="c1"># recipient_name = self.state.role_mapping.get(player_id, f&quot;Player {player_id}&quot;)</span>
+        <span class="c1"># str_observation += f&quot;\n[{recipient_name}]&quot;</span>
+
+        <span class="k">return</span> <span class="n">str_observation</span>
+
+<div class="viewcode-block" id="LLMObservationWrapper.observation">
+<a class="viewcode-back" href="../../../../source/textarena.wrappers.ObservationWrappers.html#textarena.wrappers.LLMObservationWrapper.observation">[docs]</a>
+    <span class="k">def</span> <span class="nf">observation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">player_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">observation</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ta</span><span class="o">.</span><span class="n">Observations</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="n">observation</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_obs_to_str</span><span class="p">(</span><span class="n">player_id</span><span class="o">=</span><span class="n">player_id</span><span class="p">)</span>
+
+        <span class="c1"># Extend the full observations with the current observations without duplicates</span>
+        <span class="k">if</span> <span class="n">player_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_observations</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">full_observations</span><span class="p">[</span><span class="n">player_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            
+        <span class="k">for</span> <span class="n">obs</span> <span class="ow">in</span> <span class="n">observation</span><span class="p">:</span>
+            <span class="c1"># if obs not in self.full_observations[player_id]: !!! - Any reason why we check for duplicates?</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">full_observations</span><span class="p">[</span><span class="n">player_id</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_obs_to_str</span><span class="p">(</span><span class="n">player_id</span><span class="o">=</span><span class="n">player_id</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">TextArena</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/modules.html">textarena</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Leon Guertler, Bobby Cheng.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.1.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

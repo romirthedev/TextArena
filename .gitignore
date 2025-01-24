@@ -176,3 +176,5 @@ sandbox.ipynb
 static_temp
 
 *.mp4
+
+!docs/_build
