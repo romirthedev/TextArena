@@ -3,7 +3,7 @@ name: Generate Documentation
 on:
   push:
     branches:
-      - test/docs-workflow  # Run the workflow whenever the main branch is updated
+      - experiment/generate-docs-test  # Run the workflow whenever the main branch is updated
   workflow_dispatch:  # Allow manual triggering of the workflow
 
 permissions:
@@ -28,21 +28,24 @@ jobs:
       # Step 3: Install dependencies
       - name: Install Sphinx and Requirements
         run: |
-          python -m pip install --upgrade pip
-          pip install sphinx
-          pip install -r docs/requirements.txt || true  # Skip if no requirements file exists
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+          pip install sphinx sphinx-autobuild
 
       # Step 4: Generate Sphinx documentation
       - name: Build Sphinx Documentation
-        run: sphinx-build -b html docs/ docs/_build
+        run: |
+          cd docs
+          sphinx-apidoc -o source/ ../textarena/
+          make html
 
       # Step 5: Commit and Push the Updated Docs
       - name: Commit and Push Changes
         run: |
-          git reset --hard
-          git clean -fd
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add docs/_build
           git diff --cached --quiet || git commit -m "Update Sphinx documentation"
-          git push
+          git push origin experiment/generate-docs-test
+
