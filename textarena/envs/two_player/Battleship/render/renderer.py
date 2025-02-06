@@ -10,121 +10,161 @@ class BattleshipRenderer(BaseRenderer):
         self._setup_ship_images()
 
     def _setup_ship_images(self):
-        """Set up Battleship ship images"""
+        """Set up battleship images"""
         ships_dir = self.static_dir / "ships"
         ships_dir.mkdir(exist_ok=True)
+        
+        # Ship image sources - replace these URLs with actual image files
+        ship_images = {
+            'carrier': 'https://example.com/carrier.png',  # 5 spaces
+            'battleship': 'https://example.com/battleship.png',  # 4 spaces
+            'cruiser': 'https://example.com/cruiser.png',  # 3 spaces
+            'submarine': 'https://example.com/submarine.png',  # 3 spaces
+            'destroyer': 'https://example.com/destroyer.png',  # 2 spaces
+            'hit': 'https://example.com/hit.png',
+            'miss': 'https://example.com/miss.png'
+        }
         
         # Copy ship images from assets
         assets_dir = Path(__file__).parent / "assets" / "ships"
         if assets_dir.exists():
-            for ship in ['carrier', 'battleship', 'cruiser', 'submarine', 'destroyer', 'hit', 'miss']:
-                src = assets_dir / f"{ship}.png"
+            for ship_type in ship_images.keys():
+                src = assets_dir / f"{ship_type}.png"
                 if src.exists():
-                    shutil.copy(src, ships_dir / f"{ship}.png")
+                    shutil.copy(src, ships_dir / f"{ship_type}.png")
 
     def get_state(self) -> dict:
-        """Get Battleship-specific state"""
+        """Get battleship-specific state"""
         try:
-            board = self.env.board
+            game = self.env.game
             return {
-                "grid": board.grid if board else [['.' for _ in range(10)] for _ in range(10)],
+                "player_boards": {
+                    "0": self._get_board_state(0),
+                    "1": self._get_board_state(1)
+                },
                 "current_player": "Player 1" if self.env.state.current_player_id == 0 else "Player 2",
-                "hits": board.hits if board else [],
-                "misses": board.misses if board else [],
-                "ships_remaining": board.ships_remaining if board else 5,
-                "game_over": board.game_over if board else False,
-                "winner": board.winner if board else None,
-                "ships": [
-                    {"type": "carrier", "size": 5, "positions": [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4)]},
-                    {"type": "battleship", "size": 4, "positions": [(1, 0), (1, 1), (1, 2), (1, 3)]},
-                    {"type": "cruiser", "size": 3, "positions": [(2, 0), (2, 1), (2, 2)]},
-                    {"type": "submarine", "size": 3, "positions": [(3, 0), (3, 1), (3, 2)]},
-                    {"type": "destroyer", "size": 2, "positions": [(4, 0), (4, 1)]}
-                ]
+                "phase": self.env.state.phase,  # 'placement' or 'shooting'
+                "last_shot": self.env.state.last_shot if hasattr(self.env.state, 'last_shot') else None,
+                "game_over": self.env.state.game_over if hasattr(self.env.state, 'game_over') else False,
+                "winner": self.env.state.winner if hasattr(self.env.state, 'winner') else None,
+                "shot_history": self.env.state.shot_history if hasattr(self.env.state, 'shot_history') else []
             }
         except Exception as e:
             print(f"Error getting state: {e}")
             return {
-                "grid": [['.' for _ in range(10)] for _ in range(10)],
+                "player_boards": {
+                    "0": self._get_empty_board(),
+                    "1": self._get_empty_board()
+                },
                 "current_player": "Player 1",
-                "hits": [],
-                "misses": [],
-                "ships_remaining": 5,
+                "phase": "placement",
+                "last_shot": None,
                 "game_over": False,
                 "winner": None,
-                "ships": [
-                    {"type": "carrier", "size": 5, "positions": [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4)]},
-                    {"type": "battleship", "size": 4, "positions": [(1, 0), (1, 1), (1, 2), (1, 3)]},
-                    {"type": "cruiser", "size": 3, "positions": [(2, 0), (2, 1), (2, 2)]},
-                    {"type": "submarine", "size": 3, "positions": [(3, 0), (3, 1), (3, 2)]},
-                    {"type": "destroyer", "size": 2, "positions": [(4, 0), (4, 1)]}
-                ]
+                "shot_history": []
             }
 
+    def _get_board_state(self, player_id):
+        """Get the state of a player's board"""
+        try:
+            return {
+                "ships": self.env.game.get_ships(player_id),
+                "hits": self.env.game.get_hits(player_id),
+                "misses": self.env.game.get_misses(player_id)
+            }
+        except:
+            return self._get_empty_board()
+
+    def _get_empty_board(self):
+        """Return an empty board state"""
+        return {
+            "ships": [],
+            "hits": [],
+            "misses": []
+        }
+
     def get_custom_js(self) -> str:
-        """Get Battleship-specific JavaScript code"""
+        """Get battleship-specific JavaScript code"""
         return """
-        console.log('Loading Battleship components...');
+        console.log('Loading battleship components...');
 
         // Battleship components
-        const BattleshipGrid = ({ grid, ships }) => {
-            const renderCell = (row, col) => {
-                const cell = grid[row][col];
-                const isHit = cell === 'X';
-                const isMiss = cell === '#';
-                const isShip = ships.some(ship => 
-                    ship.positions.some(pos => pos[0] === row && pos[1] === col)
-                );
+        const BattleshipBoard = ({ board, isOpponent, phase }) => {
+            const renderSquare = (i) => {
+                const col = i % 10;
+                const row = Math.floor(i / 10);
+                const coordinate = `${String.fromCharCode(65 + col)}${row + 1}`;
                 
-                let cellClass = 'cell';
-                if (isHit) cellClass += ' hit';
-                if (isMiss) cellClass += ' miss';
-                if (isShip) cellClass += ' ship';
-
                 return (
-                    <div 
-                        key={`${row}-${col}`} 
-                        className={cellClass}
-                        onClick={() => handleCellClick(row, col)}
-                    >
-                        {isHit && <img src="/static/ships/hit.png" alt="Hit" className="cell-img" />}
-                        {isMiss && <img src="/static/ships/miss.png" alt="Miss" className="cell-img" />}
-                        {isShip && <img src="/static/ships/ship.png" alt="Ship" className="cell-img" />}
+                    <div key={i} className="square">
+                        {getSquareContent(board, coordinate, isOpponent, phase)}
                     </div>
                 );
             };
 
-            const handleCellClick = (row, col) => {
-                console.log(`Cell clicked: ${row}, ${col}`);
-                // Send the move to the server
-                const ws = new WebSocket(`ws://${window.location.host}/ws`);
-                ws.onopen = () => {
-                    ws.send(JSON.stringify({ type: 'move', row, col }));
-                    ws.close();
-                };
-            };
-
             return (
-                <div className="grid-container">
-                    <div className="battleship-grid">
-                        {grid.map((row, rowIndex) => (
-                            <div key={rowIndex} className="grid-row">
-                                {row.map((_, colIndex) => renderCell(rowIndex, colIndex))}
-                            </div>
-                        ))}
+                <div className="board-container">
+                    <div className="battleship-board">
+                        {[...Array(100)].map((_, i) => renderSquare(i))}
                     </div>
                 </div>
             );
         };
 
+        const getSquareContent = (board, coordinate, isOpponent, phase) => {
+            if (board.hits.includes(coordinate)) {
+                return <img src="/static/ships/hit.png" alt="Hit" className="marker-img" />;
+            }
+            if (board.misses.includes(coordinate)) {
+                return <img src="/static/ships/miss.png" alt="Miss" className="marker-img" />;
+            }
+            if (!isOpponent && board.ships.some(ship => ship.coordinates.includes(coordinate))) {
+                const ship = board.ships.find(ship => ship.coordinates.includes(coordinate));
+                return <img src={`/static/ships/${ship.type}.png`} alt={ship.type} className="ship-img" />;
+            }
+            return null;
+        };
+
         const renderBattleshipGameInfo = (gameState) => {
+            const shotHistoryRef = React.useRef(null);
+
+            React.useEffect(() => {
+                if (shotHistoryRef.current) {
+                    shotHistoryRef.current.scrollTop = shotHistoryRef.current.scrollHeight;
+                }
+            }, [gameState.shot_history]);
+
             return (
                 <div>
                     <div>Current Turn: {gameState.current_player}</div>
-                    {gameState.game_over && <div className="alert">Game Over! {gameState.winner} wins!</div>}
-                    <h3>Ships Remaining: {gameState.ships_remaining}</h3>
-                    <h3>Hits: {gameState.hits.length}</h3>
-                    <h3>Misses: {gameState.misses.length}</h3>
+                    <div>Phase: {gameState.phase}</div>
+                    {gameState.game_over && (
+                        <div className="alert">Game Over! Winner: {gameState.winner}</div>
+                    )}
+
+                    <h3>Players</h3>
+                    <div className="players">
+                        {Object.entries(gameState.player_names).map(([id, name]) => (
+                            <div key={id} className={`player-${id}`}>
+                                {name} (Player {parseInt(id) + 1})
+                            </div>
+                        ))}
+                    </div>
+
+                    <h3>Shot History</h3>
+                    <div 
+                        className="shot-history"
+                        ref={shotHistoryRef}
+                    >
+                        {gameState.shot_history.map((shot, i) => (
+                            <div key={i} className="shot-entry">
+                                <span className="shot-number">{i + 1}.</span>
+                                <span className={`shot ${shot.player}`}>
+                                    {shot.player}: {shot.coordinate} - {shot.result}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             );
         };
@@ -154,7 +194,24 @@ class BattleshipRenderer(BaseRenderer):
                 <BaseGameContainer gameState={gameState} renderGameInfo={renderBattleshipGameInfo}>
                     <div className="battleship-layout">
                         <div className="main-content">
-                            <BattleshipGrid grid={gameState.grid} ships={gameState.ships} />
+                            <div className="boards-container">
+                                <div className="player-board">
+                                    <h3>Your Board</h3>
+                                    <BattleshipBoard 
+                                        board={gameState.player_boards["0"]}
+                                        isOpponent={false}
+                                        phase={gameState.phase}
+                                    />
+                                </div>
+                                <div className="opponent-board">
+                                    <h3>Opponent's Board</h3>
+                                    <BattleshipBoard 
+                                        board={gameState.player_boards["1"]}
+                                        isOpponent={true}
+                                        phase={gameState.phase}
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </BaseGameContainer>
@@ -183,7 +240,7 @@ class BattleshipRenderer(BaseRenderer):
             padding: 10px 0;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            background: linear-gradient(45deg, #4CAF50, #2196F3);
+            background: linear-gradient(45deg, #1E88E5, #00ACC1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -196,43 +253,41 @@ class BattleshipRenderer(BaseRenderer):
             margin-bottom: 20px;
         }
 
-        .grid-container {
-            flex: 0 0 600px;
+        .boards-container {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+        }
+
+        .player-board, .opponent-board {
+            flex: 0 0 400px;
             background: #363636;
             padding: 20px;
             border-radius: 8px;
         }
 
-        .battleship-grid {
+        .battleship-board {
             display: grid;
-            grid-template-columns: repeat(10, 60px);
-            grid-template-rows: repeat(10, 60px);
-            width: 600px;
-            height: 600px;
+            grid-template-columns: repeat(10, 1fr);
+            width: 400px;
+            height: 400px;
             border: 2px solid #404040;
+            background: #0077be;
         }
 
-        .grid-row {
-            display: flex;
-        }
-
-        .cell {
-            width: 60px;
-            height: 60px;
+        .square {
+            width: 40px;
+            height: 40px;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px solid #404040;
-            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
         }
 
-        .cell.hit { background-color: #ff4444; }
-        .cell.miss { background-color: #2196F3; }
-        .cell.ship { background-color: #769656; }
-
-        .cell-img {
-            width: 60px;
-            height: 60px;
+        .ship-img, .marker-img {
+            width: 35px;
+            height: 35px;
             user-select: none;
         }
 
@@ -250,10 +305,10 @@ class BattleshipRenderer(BaseRenderer):
             margin-bottom: 20px;
         }
 
-        .white-player { color: #ffffff; }
-        .black-player { color: #000000; }
+        .player-0 { color: #4CAF50; }
+        .player-1 { color: #2196F3; }
 
-        .move-history {
+        .shot-history {
             font-family: monospace;
             margin-top: 10px;
             background: #2B2B2B;
@@ -263,31 +318,31 @@ class BattleshipRenderer(BaseRenderer):
             overflow-y: auto;
         }
 
-        .move {
-            display: inline-block;
+        .shot-entry {
             margin: 2px 0;
             padding: 2px 6px;
             border-radius: 3px;
         }
 
-        .move.white {
-            color: #ffffff;
-            background: #404040;
+        .shot {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 2px 6px;
+            border-radius: 3px;
         }
 
-        .move.black {
-            color: #a0a0a0;
-            background: #333333;
+        .shot.Player1 {
+            color: #4CAF50;
+            background: #1b3a1b;
         }
 
-        .move-number {
+        .shot.Player2 {
+            color: #2196F3;
+            background: #1a2c3d;
+        }
+
+        .shot-number {
             color: #666666;
-            margin-right: 4px;
-        }
-
-        .move-pair {
-            display: block;
-            margin-bottom: 4px;
         }
 
         .chat-message {
@@ -302,6 +357,6 @@ class BattleshipRenderer(BaseRenderer):
             margin-bottom: 5px;
         }
 
-        .chat-message.white .player-name { color: #ffffff; }
-        .chat-message.black .player-name { color: #a0a0a0; }
+        .chat-message.player-1 .player-name { color: #4CAF50; }
+        .chat-message.player-2 .player-name { color: #2196F3; }
         """
