@@ -14,7 +14,7 @@ class BattleshipRenderer(BaseRenderer):
         ships_dir = self.static_dir / "ships"
         ships_dir.mkdir(exist_ok=True)
         
-        # Ship image sources - replace these URLs with actual image files
+        # Replace later
         ship_images = {
             'carrier': 'https://example.com/carrier.png',  # 5 spaces
             'battleship': 'https://example.com/battleship.png',  # 4 spaces
